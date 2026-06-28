@@ -3,46 +3,73 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Rhemy Beatz|Beatshub</title>
-  <meta name="description" content="Premium beats by XTRXMZ. Trap, Hip-Hop, Drill, R&B instrumentals available for licensing." />
+  <title>Rhemy Beatz | Premium Beats</title>
+  <meta name="description" content="High Quality Beats For Artists Who Want To Win. Premium instrumentals by Rhemy Beatz." />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
+<!-- ═══════════════════════════════════════════ LOADING SCREEN ══ -->
+<div class="loading-screen" id="loading-screen">
+  <div class="loading-particles" id="loading-particles"></div>
+  <div class="loading-noise"></div>
+  <div class="loading-vignette"></div>
+  <div class="loading-content">
+    <div class="loading-wordmark">RHEMY BEATZ</div>
+    <div class="loading-waveform" id="loading-waveform"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ CUSTOM CURSOR ══ -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+
 <!-- ═══════════════════════════════════════════ NAV ══ -->
 <nav id="nav">
-  <a href="#hero" class="nav-logo"></a>
+  <a href="#hero" class="nav-logo">RHEMY BEATZ</a>
   <div class="nav-links">
+    <a href="#hero">Home</a>
+    <a href="#beats">Beat Store</a>
+    <a href="#sound-perks">Sound Perks</a>
+    <a href="#the-hub">The Hub</a>
+    <a href="#services">Services</a>
     <a href="#about">About</a>
-    <a href="#beats">Beats</a>
-    <a href="#contact">Contact</a>
   </div>
-  <div class="nav-social">
-    <!-- Instagram -->
-    <a href="https://instagram.com" target="_blank" title="Instagram">
-      <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
-    </a>
-    <!-- YouTube -->
-    <a href="https://youtube.com" target="_blank" title="YouTube">
-      <svg viewBox="0 0 24 24"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>
-    </a>
-    <!-- TikTok -->
-    <a href="https://tiktok.com" target="_blank" title="TikTok">
-      <svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
-    </a>
+  <div class="nav-actions">
+    <button class="nav-action-btn" title="Search">
+      <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+    </button>
+    <button class="nav-action-btn" title="Wishlist">
+      <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+    </button>
+    <button class="nav-action-btn" title="Cart">
+      <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+    </button>
+    <button class="nav-action-btn" title="Login">
+      <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+    </button>
   </div>
 </nav>
 
 <!-- ═══════════════════════════════════════════ HERO ══ -->
 <section id="hero">
-  <div class="hero-bg"></div>
+  <div class="hero-bg" id="hero-bg"></div>
   <div class="hero-overlay"></div>
+  <div class="hero-noise"></div>
+  <div class="hero-particles" id="hero-particles"></div>
   <div class="hero-content">
-    <h1 class="hero-name" id="hero-name">Rhemy Beatz</h1>
-    <p class="hero-tagline" id="hero-tagline">Beats That Hit Different</p>
+    <div class="hero-crown">👑</div>
+    <h1 class="hero-name" id="hero-name">RHEMY BEATZ</h1>
+    <p class="hero-tagline" id="hero-tagline">High Quality Beats For Artists Who Want To Win.</p>
     <div class="hero-cta">
       <a href="#beats" class="btn btn-primary">Browse Beats</a>
       <a href="#about" class="btn btn-outline">About Me</a>
+    </div>
+  </div>
+  <div class="scroll-indicator" id="scroll-indicator">
+    <div class="scroll-text">SCROLL</div>
+    <div class="scroll-arrow">
+      <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
     </div>
   </div>
 </section>
@@ -78,7 +105,7 @@
   <div class="beats-header">
     <div>
       <div class="section-label">The Catalog</div>
-      <h2 class="section-title">Beats</h2>
+      <h2 class="section-title">Beat Store</h2>
     </div>
     <span class="filter-count" id="beat-count"></span>
   </div>
@@ -93,7 +120,250 @@
     </select>
   </div>
 
-  <div class="beats-grid" id="beats-grid"></div>
+  <div class="beats-list" id="beats-grid"></div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SOUND PERKS ══ -->
+<section id="sound-perks">
+  <div class="section-label">Resources</div>
+  <h2 class="section-title">Sound Perks</h2>
+  <p class="section-subtitle">Exclusive resources for producers and artists who want to level up their craft.</p>
+  <div class="section-divider"></div>
+  <div class="perks-grid">
+    <div class="perk-card">
+      <div class="perk-icon">🎁</div>
+      <h3 class="perk-title">Free Beat Fridays</h3>
+      <p class="perk-desc">Every Friday, download a free beat to use in your projects. No strings attached.</p>
+      <a href="#beats" class="perk-link">Explore Free Beats →</a>
+    </div>
+    <div class="perk-card">
+      <div class="perk-icon">📦</div>
+      <h3 class="perk-title">Sample Packs</h3>
+      <p class="perk-desc">Premium sample packs featuring drums, melodies, and textures used in my productions.</p>
+      <a href="#" class="perk-link">Browse Packs →</a>
+    </div>
+    <div class="perk-card">
+      <div class="perk-icon">🥁</div>
+      <h3 class="perk-title">Drum Kits</h3>
+      <p class="perk-desc">Industry-standard drum kits with 808s, snares, hi-hats, and percussion sounds.</p>
+      <a href="#" class="perk-link">Get Drum Kits →</a>
+    </div>
+    <div class="perk-card">
+      <div class="perk-icon">🎚️</div>
+      <h3 class="perk-title">Mixing Presets</h3>
+      <p class="perk-desc">Professional mixing presets for FL Studio, Ableton, and Pro Tools.</p>
+      <a href="#" class="perk-link">Download Presets →</a>
+    </div>
+    <div class="perk-card">
+      <div class="perk-icon">💡</div>
+      <h3 class="perk-title">Producer Tips</h3>
+      <p class="perk-desc">Exclusive tutorials, techniques, and insights from years of experience.</p>
+      <a href="#the-hub" class="perk-link">Learn More →</a>
+    </div>
+    <div class="perk-card">
+      <div class="perk-icon">📚</div>
+      <h3 class="perk-title">Artist Resources</h3>
+      <p class="perk-desc">Guides on music business, marketing, distribution, and building your brand.</p>
+      <a href="#the-hub" class="perk-link">Access Resources →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ FEATURED GENRES ══ -->
+<section id="featured-genres">
+  <div class="section-label">Explore</div>
+  <h2 class="section-title">Featured Genres</h2>
+  <p class="section-subtitle">Discover beats across different styles and vibes.</p>
+  <div class="section-divider"></div>
+  <div class="genres-grid">
+    <a href="#beats" class="genre-card" data-genre="Afrobeats">
+      <div class="genre-bg" style="background: linear-gradient(135deg, #1a0a00 0%, #2a1505 100%)"></div>
+      <div class="genre-content">
+        <h3 class="genre-name">Afrobeats</h3>
+        <p class="genre-count">12 Beats</p>
+      </div>
+    </a>
+    <a href="#beats" class="genre-card" data-genre="Trap">
+      <div class="genre-bg" style="background: linear-gradient(135deg, #0a0a1a 0%, #151525 100%)"></div>
+      <div class="genre-content">
+        <h3 class="genre-name">Trap</h3>
+        <p class="genre-count">18 Beats</p>
+      </div>
+    </a>
+    <a href="#beats" class="genre-card" data-genre="Drill">
+      <div class="genre-bg" style="background: linear-gradient(135deg, #0a0f0a 0%, #151a15 100%)"></div>
+      <div class="genre-content">
+        <h3 class="genre-name">Drill</h3>
+        <p class="genre-count">8 Beats</p>
+      </div>
+    </a>
+    <a href="#beats" class="genre-card" data-genre="Amapiano">
+      <div class="genre-bg" style="background: linear-gradient(135deg, #0a0a05 0%, #151510 100%)"></div>
+      <div class="genre-content">
+        <h3 class="genre-name">Amapiano</h3>
+        <p class="genre-count">6 Beats</p>
+      </div>
+    </a>
+    <a href="#beats" class="genre-card" data-genre="R&B">
+      <div class="genre-bg" style="background: linear-gradient(135deg, #0a050a 0%, #151015 100%)"></div>
+      <div class="genre-content">
+        <h3 class="genre-name">R&B</h3>
+        <p class="genre-count">10 Beats</p>
+      </div>
+    </a>
+    <a href="#beats" class="genre-card" data-genre="Dancehall">
+      <div class="genre-bg" style="background: linear-gradient(135deg, #0a0a00 0%, #151510 100%)"></div>
+      <div class="genre-content">
+        <h3 class="genre-name">Dancehall</h3>
+        <p class="genre-count">7 Beats</p>
+      </div>
+    </a>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ THE HUB ══ -->
+<section id="the-hub">
+  <div class="section-label">Content Hub</div>
+  <h2 class="section-title">The Hub</h2>
+  <p class="section-subtitle">Your destination for producer content, artist features, and industry insights.</p>
+  <div class="section-divider"></div>
+  <div class="hub-grid">
+    <article class="hub-card featured">
+      <div class="hub-card-image" style="background: linear-gradient(135deg, #1a0a1a 0%, #2a1525 100%)">
+        <span class="hub-badge">Featured</span>
+      </div>
+      <div class="hub-card-content">
+        <div class="hub-meta">Latest Drop</div>
+        <h3 class="hub-title">New Beat Pack: "Midnight Sessions"</h3>
+        <p class="hub-excerpt">10 exclusive trap beats perfect for late-night studio sessions. Dark, cinematic, and ready for vocals.</p>
+        <a href="#" class="hub-link">Read More →</a>
+      </div>
+    </article>
+    <article class="hub-card">
+      <div class="hub-card-image" style="background: linear-gradient(135deg, #0a1a0a 0%, #152515 100%)"></div>
+      <div class="hub-card-content">
+        <div class="hub-meta">Producer Tips</div>
+        <h3 class="hub-title">5 Mixing Secrets for Punchy 808s</h3>
+        <p class="hub-excerpt">Learn the techniques I use to make 808s cut through any mix while maintaining clarity and power.</p>
+        <a href="#" class="hub-link">Read More →</a>
+      </div>
+    </article>
+    <article class="hub-card">
+      <div class="hub-card-image" style="background: linear-gradient(135deg, #1a1a0a 0%, #252515 100%)"></div>
+      <div class="hub-card-content">
+        <div class="hub-meta">Artist Spotlight</div>
+        <h3 class="hub-title">Breaking Down: Artist X's Journey</h3>
+        <p class="hub-excerpt">How one artist went from bedroom recordings to 1M+ streams using our beats.</p>
+        <a href="#" class="hub-link">Read More →</a>
+      </div>
+    </article>
+    <article class="hub-card">
+      <div class="hub-card-image" style="background: linear-gradient(135deg, #0a0a1a 0%, #151525 100%)"></div>
+      <div class="hub-card-content">
+        <div class="hub-meta">Behind the Scenes</div>
+        <h3 class="hub-title">Studio Tour: My Setup</h3>
+        <p class="hub-excerpt">A look inside my production studio, the gear I use, and my workflow for creating hits.</p>
+        <a href="#" class="hub-link">Read More →</a>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ SERVICES ══ -->
+<section id="services">
+  <div class="section-label">Work With Me</div>
+  <h2 class="section-title">Services</h2>
+  <p class="section-subtitle">Take your music to the next level with professional production services.</p>
+  <div class="section-divider"></div>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">🎵</div>
+      <h3 class="service-title">Exclusive Beats</h3>
+      <p class="service-desc">Get full ownership of custom beats crafted specifically for your project. Perfect for albums and singles.</p>
+      <div class="service-price">Starting at $499</div>
+      <a href="#contact" class="btn btn-outline">Inquire</a>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🎹</div>
+      <h3 class="service-title">Custom Production</h3>
+      <p class="service-desc">Full production services from concept to final mix. We'll build your sound from the ground up.</p>
+      <div class="service-price">Starting at $999</div>
+      <a href="#contact" class="btn btn-outline">Inquire</a>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🎚️</div>
+      <h3 class="service-title">Mixing & Mastering</h3>
+      <p class="service-desc">Professional mixing and mastering to make your tracks sound radio-ready and competitive.</p>
+      <div class="service-price">Starting at $149</div>
+      <a href="#contact" class="btn btn-outline">Inquire</a>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">💼</div>
+      <h3 class="service-title">Consultation</h3>
+      <p class="service-desc">One-on-one sessions to discuss your sound, get feedback, and develop your artistic direction.</p>
+      <div class="service-price">Starting at $199</div>
+      <a href="#contact" class="btn btn-outline">Inquire</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ TESTIMONIALS ══ -->
+<section id="testimonials">
+  <div class="section-label">Testimonials</div>
+  <h2 class="section-title">What Artists Say</h2>
+  <p class="section-subtitle">Hear from artists who have worked with RHEMY BEATZ.</p>
+  <div class="section-divider"></div>
+  <div class="testimonials-carousel">
+    <div class="testimonial-card active">
+      <div class="testimonial-avatar" style="background: linear-gradient(135deg, #1a0a1a 0%, #2a1525 100%)">JD</div>
+      <div class="testimonial-content">
+        <div class="testimonial-rating">★★★★★</div>
+        <p class="testimonial-quote">"The beats I got from Rhemy changed my entire sound. My streams tripled within a month of releasing tracks with his production."</p>
+        <div class="testimonial-author">John Doe</div>
+        <div class="testimonial-role">Hip-Hop Artist</div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <div class="testimonial-avatar" style="background: linear-gradient(135deg, #0a1a0a 0%, #152515 100%)">SM</div>
+      <div class="testimonial-content">
+        <div class="testimonial-rating">★★★★★</div>
+        <p class="testimonial-quote">"Professional, responsive, and incredibly talented. The exclusive beat I purchased became my breakout single."</p>
+        <div class="testimonial-author">Sarah Mitchell</div>
+        <div class="testimonial-role">R&B Artist</div>
+      </div>
+    </div>
+    <div class="testimonial-card">
+      <div class="testimonial-avatar" style="background: linear-gradient(135deg, #1a1a0a 0%, #252515 100%)">MK</div>
+      <div class="testimonial-content">
+        <div class="testimonial-rating">★★★★★</div>
+        <p class="testimonial-quote">"Been working with Rhemy for 2 years now. Consistent quality, fair pricing, and always delivers on time."</p>
+        <div class="testimonial-author">Mike King</div>
+        <div class="testimonial-role">Trap Artist</div>
+      </div>
+    </div>
+  </div>
+  <div class="testimonial-nav">
+    <button class="testimonial-nav-btn" onclick="prevTestimonial()">←</button>
+    <button class="testimonial-nav-btn" onclick="nextTestimonial()">→</button>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ NEWSLETTER ══ -->
+<section id="newsletter">
+  <div class="newsletter-content">
+    <div class="newsletter-text">
+      <div class="section-label">Stay Connected</div>
+      <h2 class="section-title">Join The Family</h2>
+      <p class="newsletter-subtitle">Get exclusive beats, early access to new releases, producer tips, and special discounts delivered to your inbox.</p>
+    </div>
+    <form class="newsletter-form" id="newsletter-form">
+      <input type="email" class="newsletter-input" placeholder="Enter your email" required />
+      <button type="submit" class="btn btn-primary">Subscribe</button>
+    </form>
+    <div class="newsletter-success" id="newsletter-success">
+      ✓ Welcome to the family! Check your inbox for a special welcome gift.
+    </div>
+  </div>
 </section>
 
 <!-- ═══════════════════════════════════════════ CONTACT ══ -->
@@ -163,8 +433,56 @@
 
 <!-- ═══════════════════════════════════════════ FOOTER ══ -->
 <footer>
-  <div class="footer-name">XTRXMZ</div>
-  <p>&copy; 2026 XTRXMZ. All beats produced and owned by XTRXMZ.</p>
+  <div class="footer-content">
+    <div class="footer-brand">
+      <div class="footer-monogram">RB</div>
+      <div class="footer-name">RHEMY BEATZ</div>
+      <p>Premium beats for artists who want to win. Industry-quality instrumentals crafted with passion and precision.</p>
+    </div>
+    <div class="footer-section">
+      <h4>Navigation</h4>
+      <ul>
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#beats">Beat Store</a></li>
+        <li><a href="#sound-perks">Sound Perks</a></li>
+        <li><a href="#the-hub">The Hub</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+    </div>
+    <div class="footer-section">
+      <h4>Resources</h4>
+      <ul>
+        <li><a href="#featured-genres">Featured Genres</a></li>
+        <li><a href="#testimonials">Testimonials</a></li>
+        <li><a href="#newsletter">Newsletter</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-section">
+      <h4>Connect</h4>
+      <ul>
+        <li><a href="https://instagram.com" target="_blank">Instagram</a></li>
+        <li><a href="https://youtube.com" target="_blank">YouTube</a></li>
+        <li><a href="https://tiktok.com" target="_blank">TikTok</a></li>
+        <li><a href="mailto:bookdjrhemy@gmail.com">Email</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 Rhemy Beatz. All rights reserved.</p>
+    <div class="footer-social">
+      <a href="https://instagram.com" target="_blank" title="Instagram">
+        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      </a>
+      <a href="https://youtube.com" target="_blank" title="YouTube">
+        <svg viewBox="0 0 24 24"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>
+      </a>
+      <a href="https://tiktok.com" target="_blank" title="TikTok">
+        <svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+      </a>
+    </div>
+  </div>
 </footer>
 
 <!-- ═══════════════════════════════════════════ BEAT MODAL ══ -->
@@ -232,6 +550,7 @@
       <svg viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zm2.5-6 5.5 4V8z M16 6h2v12h-2z"/></svg>
     </button>
   </div>
+  <div class="player-waveform" id="player-waveform"></div>
   <div class="player-progress">
     <span class="progress-time" id="time-current">0:00</span>
     <div class="progress-track" id="progress-track">

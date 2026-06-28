@@ -1,8 +1,8 @@
 // ─── DATA ─────────────────────────────────────────────────────────────────
 const PRODUCER = {
-  name: "Rhemy Beatz",
-  tagline: "Beats That Hit Different",
-  bio: "Multi-platinum producer with over a decade of experience crafting sounds for the world's top artists. Based in Atlanta, GA — XTRXMZ blends trap, melodic hip-hop, and dark cinematic textures into beats that don't just play, they move people.",
+  name: "RHEMY BEATZ",
+  tagline: "High Quality Beats For Artists Who Want To Win.",
+  bio: "Multi-platinum producer with over a decade of experience crafting sounds for the world's top artists. Based in Atlanta, GA — Rhemy Beatz blends trap, melodic hip-hop, and dark cinematic textures into beats that don't just play, they move people.",
   bio2: "Known for pushing sonic boundaries and delivering professional, radio-ready instrumentals that sit perfectly in any mix.",
   credits: "Featured on 200+ tracks. Collaborated with Grammy-winning artists. Placements across major labels including Atlantic, Interscope, and Republic Records.",
   achievements: "2M+ streams across all platforms. 3× Billboard charting tracks. Producer of the Year nominee 2023. Gold certified placement.",
@@ -15,7 +15,7 @@ const PRODUCER = {
   instagram: "https://instagram.com",
   youtube: "https://youtube.com",
   tiktok: "https://tiktok.com",
-  email: "contact@xtrxmz.com",
+  email: "bookdjrhemy@gmail.com",
 };
 
 const BEATS = [
@@ -94,12 +94,167 @@ const audioEl = document.getElementById("audio");
 
 // ─── INIT ─────────────────────────────────────────────────────────────────
 function init() {
+  setupLoadingScreen();
+  setupCursor();
+  setupNavScroll();
+  setupHeroParallax();
+  setupScrollIndicator();
   renderProducer();
   renderBeats(BEATS);
   setupFilters();
   setupPlayer();
   setupContact();
   setupModal();
+}
+
+// ─── LOADING SCREEN ───────────────────────────────────────────────────────
+function setupLoadingScreen() {
+  const loadingScreen = document.getElementById("loading-screen");
+  const waveform = document.getElementById("loading-waveform");
+  const particles = document.getElementById("loading-particles");
+  
+  // Create waveform bars
+  for (let i = 0; i < 9; i++) {
+    const bar = document.createElement("div");
+    bar.className = "loading-waveform-bar";
+    waveform.appendChild(bar);
+  }
+  
+  // Create floating particles
+  for (let i = 0; i < 30; i++) {
+    const particle = document.createElement("div");
+    particle.style.cssText = `
+      position: absolute;
+      width: ${Math.random() * 4 + 2}px;
+      height: ${Math.random() * 4 + 2}px;
+      background: rgba(216,31,38,${Math.random() * 0.5 + 0.2});
+      border-radius: 50%;
+      left: ${Math.random() * 100}%;
+      top: ${Math.random() * 100}%;
+      animation: particleFloat ${Math.random() * 10 + 10}s linear infinite;
+      animation-delay: ${Math.random() * 5}s;
+    `;
+    particles.appendChild(particle);
+  }
+  
+  // Add particle animation keyframes dynamically
+  const style = document.createElement("style");
+  style.textContent = `
+    @keyframes particleFloat {
+      0% { transform: translateY(0) translateX(0); opacity: 0; }
+      10% { opacity: 1; }
+      90% { opacity: 1; }
+      100% { transform: translateY(-100vh) translateX(${Math.random() * 100 - 50}px); opacity: 0; }
+    }
+  `;
+  document.head.appendChild(style);
+  
+  setTimeout(() => {
+    loadingScreen.classList.add("hidden");
+  }, 3000);
+}
+
+// ─── CUSTOM CURSOR ────────────────────────────────────────────────────────
+function setupCursor() {
+  const cursor = document.getElementById("cursor");
+  const cursorRing = document.getElementById("cursor-ring");
+  
+  if (!cursor || !cursorRing) return;
+  
+  // Disable on touch devices
+  if ('ontouchstart' in window) {
+    cursor.style.display = 'none';
+    cursorRing.style.display = 'none';
+    return;
+  }
+  
+  document.addEventListener("mousemove", (e) => {
+    cursor.style.left = e.clientX + "px";
+    cursor.style.top = e.clientY + "px";
+    cursorRing.style.left = e.clientX + "px";
+    cursorRing.style.top = e.clientY + "px";
+  });
+  
+  // Context-aware cursor interactions
+  document.querySelectorAll("a, button, .beat-row, .beat-card, .perk-card, .genre-card, .hub-card, .service-card").forEach(el => {
+    el.addEventListener("mouseenter", () => {
+      cursor.classList.add("hovering");
+      cursorRing.classList.add("hovering");
+      
+      // Context-specific cursor modes
+      if (el.classList.contains("beat-row") || el.classList.contains("play-pause-btn")) {
+        cursor.classList.add("play-mode");
+      } else if (el.querySelector(".beat-row-btn[title='Like']") || el.title === "Wishlist") {
+        cursor.classList.add("heart-mode");
+      } else if (el.title === "Cart" || el.querySelector(".beat-row-btn[title='Add to Cart']")) {
+        cursor.classList.add("cart-mode");
+      }
+    });
+    el.addEventListener("mouseleave", () => {
+      cursor.classList.remove("hovering", "play-mode", "heart-mode", "cart-mode");
+      cursorRing.classList.remove("hovering");
+    });
+  });
+}
+
+// ─── NAV SCROLL EFFECT ────────────────────────────────────────────────────
+function setupNavScroll() {
+  const nav = document.getElementById("nav");
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 50) {
+      nav.classList.add("scrolled");
+    } else {
+      nav.classList.remove("scrolled");
+    }
+  });
+}
+
+// ─── HERO PARALLAX ────────────────────────────────────────────────────────
+function setupHeroParallax() {
+  const heroBg = document.getElementById("hero-bg");
+  const heroContent = document.querySelector(".hero-content");
+  
+  if (!heroBg) return;
+  
+  window.addEventListener("mousemove", (e) => {
+    const x = (e.clientX / window.innerWidth - 0.5) * 20;
+    const y = (e.clientY / window.innerHeight - 0.5) * 20;
+    heroBg.style.transform = `scale(1.15) translate(${x}px, ${y}px)`;
+  });
+  
+  // Create floating particles
+  const particlesContainer = document.getElementById("hero-particles");
+  if (particlesContainer) {
+    for (let i = 0; i < 20; i++) {
+      const particle = document.createElement("div");
+      particle.style.cssText = `
+        position: absolute;
+        width: ${Math.random() * 3 + 1}px;
+        height: ${Math.random() * 3 + 1}px;
+        background: rgba(216,31,38,${Math.random() * 0.4 + 0.1});
+        border-radius: 50%;
+        left: ${Math.random() * 100}%;
+        top: ${Math.random() * 100}%;
+        animation: particleFloat ${Math.random() * 15 + 10}s linear infinite;
+        animation-delay: ${Math.random() * 5}s;
+      `;
+      particlesContainer.appendChild(particle);
+    }
+  }
+}
+
+// ─── SCROLL INDICATOR ──────────────────────────────────────────────────────
+function setupScrollIndicator() {
+  const scrollIndicator = document.getElementById("scroll-indicator");
+  if (!scrollIndicator) return;
+  
+  window.addEventListener("scroll", () => {
+    if (window.scrollY > 100) {
+      scrollIndicator.classList.add("hidden");
+    } else {
+      scrollIndicator.classList.remove("hidden");
+    }
+  });
 }
 
 // ─── PRODUCER ─────────────────────────────────────────────────────────────
@@ -147,39 +302,62 @@ function renderBeats(beats) {
   }
 
   grid.innerHTML = beats.map(beat => `
-    <div class="beat-card${currentBeat && currentBeat.id === beat.id ? " playing" : ""}"
-         data-id="${beat.id}" onclick="handleBeatCardClick(${beat.id}, event)">
-      <div class="beat-artwork" style="background: ${getBeatGradient(beat)}">
-        <div class="beat-artwork-placeholder">${getInitials(beat.title)}</div>
-        <div class="beat-play-btn">
-          <div class="beat-play-icon">
-            ${currentBeat && currentBeat.id === beat.id && isPlaying
-              ? `<svg viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>`
-              : `<svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>`
-            }
-          </div>
-        </div>
-        <div class="beat-playing-indicator">PLAYING</div>
+    <div class="beat-row${currentBeat && currentBeat.id === beat.id ? " playing" : ""}"
+         data-id="${beat.id}" onclick="handleBeatRowClick(${beat.id}, event)">
+      <div class="beat-row-artwork" style="background: ${getBeatGradient(beat)}">
+        <div class="beat-row-artwork-placeholder">${getInitials(beat.title)}</div>
       </div>
-      <div class="beat-info">
-        <div class="beat-title">${beat.title}</div>
-        <div class="beat-meta">
-          <span class="beat-tag gold">${beat.genre}</span>
-          <span class="beat-tag">${beat.bpm} BPM</span>
-          <span class="beat-tag">${beat.key}</span>
+      <div class="beat-row-info">
+        <div class="beat-row-title">${beat.title}</div>
+        <div class="beat-row-meta">
+          <span>${beat.genre}</span>
+          <span>•</span>
+          <span>${beat.bpm} BPM</span>
+          <span>•</span>
+          <span>${beat.key}</span>
         </div>
-        <div class="beat-footer">
-          <div class="beat-price">$${beat.price.toFixed(2)}<span>/ basic</span></div>
-          <button class="beat-buy-btn" onclick="openModal(${beat.id}, event)">Details</button>
-        </div>
+      </div>
+      <div class="beat-row-waveform">
+        <div class="beat-row-waveform-bar"></div>
+        <div class="beat-row-waveform-bar"></div>
+        <div class="beat-row-waveform-bar"></div>
+        <div class="beat-row-waveform-bar"></div>
+        <div class="beat-row-waveform-bar"></div>
+        <div class="beat-row-waveform-bar"></div>
+        <div class="beat-row-waveform-bar"></div>
+        <div class="beat-row-waveform-bar"></div>
+      </div>
+      <div class="beat-row-price">$${beat.price.toFixed(2)}</div>
+      <div class="beat-row-actions">
+        <button class="beat-row-btn" title="Like" onclick="toggleLike(${beat.id}, event)">
+          <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+        </button>
+        <button class="beat-row-btn" title="Add to Cart" onclick="addToCart(${beat.id}, event)">
+          <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+        </button>
+        <button class="beat-row-btn" title="Buy Now" onclick="openModal(${beat.id}, event)">
+          <svg viewBox="0 0 24 24"><path d="M5 4v2h14V4H5zm0 4v2h14V8H5zm0 4v2h14v-2H5zm0 4v2h14v-2H5z"/></svg>
+        </button>
       </div>
     </div>
   `).join("");
 }
 
-function handleBeatCardClick(id, e) {
-  if (e.target.closest(".beat-buy-btn")) return;
+function handleBeatRowClick(id, e) {
+  if (e.target.closest(".beat-row-btn")) return;
   playBeat(id);
+}
+
+function toggleLike(id, e) {
+  e.stopPropagation();
+  const btn = e.currentTarget;
+  btn.classList.toggle("liked");
+}
+
+function addToCart(id, e) {
+  e.stopPropagation();
+  // Add cart functionality here
+  alert("Added to cart!");
 }
 
 // ─── FILTERS ──────────────────────────────────────────────────────────────
@@ -243,11 +421,14 @@ function togglePlayPause() {
   if (!currentBeat) return;
   isPlaying = !isPlaying;
   const btn = document.querySelector(".play-pause-btn");
+  const player = document.getElementById("player");
   if (isPlaying) {
     btn.classList.add("playing");
+    player.classList.add("playing");
     startSimulatedProgress();
   } else {
     btn.classList.remove("playing");
+    player.classList.remove("playing");
     clearInterval(progressTimer);
   }
   renderBeats(filteredBeats);
@@ -258,6 +439,15 @@ function updatePlayerInfo() {
   document.getElementById("player-title").textContent = currentBeat.title;
   document.getElementById("player-genre").textContent = `${currentBeat.genre} · ${currentBeat.bpm} BPM · ${currentBeat.key}`;
   document.getElementById("player-art-initials").textContent = getInitials(currentBeat.title);
+  
+  // Create waveform bars
+  const waveform = document.getElementById("player-waveform");
+  waveform.innerHTML = "";
+  for (let i = 0; i < 8; i++) {
+    const bar = document.createElement("div");
+    bar.className = "player-waveform-bar";
+    waveform.appendChild(bar);
+  }
 }
 
 // Simulated progress (since we have no real audio files in a static build)
@@ -352,7 +542,7 @@ function openModal(id, e) {
   document.getElementById("modal-spec-key").textContent = beat.key;
   document.getElementById("modal-spec-mood").textContent = beat.mood;
   document.getElementById("modal-tags").innerHTML = beat.tags.map(t =>
-    `<span class="beat-tag">${t}</span>`).join("");
+    `<span class="modal-tag">${t}</span>`).join("");
   document.getElementById("modal-license-basic").textContent    = `$${beat.basic.toFixed(2)}`;
   document.getElementById("modal-license-premium").textContent  = `$${beat.premium.toFixed(2)}`;
   document.getElementById("modal-license-exclusive").textContent = beat.exclusive ? `$${beat.exclusive.toFixed(2)}` : "Contact";
@@ -380,6 +570,36 @@ function setupContact() {
       document.getElementById("form-success").classList.add("show");
     }, 1200);
   });
+  
+  // Newsletter form
+  const newsletterForm = document.getElementById("newsletter-form");
+  if (newsletterForm) {
+    newsletterForm.addEventListener("submit", e => {
+      e.preventDefault();
+      newsletterForm.style.display = "none";
+      document.getElementById("newsletter-success").classList.add("show");
+    });
+  }
+}
+
+// ─── TESTIMONIALS ──────────────────────────────────────────────────────────
+let currentTestimonial = 0;
+const testimonials = document.querySelectorAll(".testimonial-card");
+
+function showTestimonial(index) {
+  testimonials.forEach((t, i) => {
+    t.classList.toggle("active", i === index);
+  });
+}
+
+function nextTestimonial() {
+  currentTestimonial = (currentTestimonial + 1) % testimonials.length;
+  showTestimonial(currentTestimonial);
+}
+
+function prevTestimonial() {
+  currentTestimonial = (currentTestimonial - 1 + testimonials.length) % testimonials.length;
+  showTestimonial(currentTestimonial);
 }
 
 // ─── BOOT ─────────────────────────────────────────────────────────────────
