@@ -99,6 +99,11 @@ function init() {
   setupNavScroll();
   setupHeroParallax();
   setupScrollIndicator();
+  setupMobileMenu();
+  // Only run setupHubHero if on hub.html
+  if (window.location.pathname.includes('hub.html') || window.location.pathname.endsWith('/hub')) {
+    setupHubHero();
+  }
   renderProducer();
   renderBeats(BEATS);
   setupFilters();
@@ -255,6 +260,193 @@ function setupScrollIndicator() {
       scrollIndicator.classList.remove("hidden");
     }
   });
+}
+
+// ─── HUB HERO ──────────────────────────────────────────────────────────────
+function setupHubHero() {
+  const hubHeroParticles = document.getElementById("hub-hero-particles");
+  const bodWaveform = document.getElementById("bod-waveform");
+  
+  // Create floating particles for Hub hero
+  if (hubHeroParticles) {
+    for (let i = 0; i < 30; i++) {
+      const particle = document.createElement("div");
+      particle.style.cssText = `
+        position: absolute;
+        width: ${Math.random() * 4 + 2}px;
+        height: ${Math.random() * 4 + 2}px;
+        background: rgba(216,31,38,${Math.random() * 0.3 + 0.1});
+        border-radius: 50%;
+        left: ${Math.random() * 100}%;
+        top: ${Math.random() * 100}%;
+        animation: floatParticle ${Math.random() * 10 + 10}s ease-in-out infinite;
+        animation-delay: ${Math.random() * 5}s;
+      `;
+      hubHeroParticles.appendChild(particle);
+    }
+  }
+  
+  // Create waveform bars for Beat of Day
+  if (bodWaveform) {
+    for (let i = 0; i < 20; i++) {
+      const bar = document.createElement("div");
+      bar.className = "bod-waveform-bar";
+      bar.style.cssText = `
+        width: 3px;
+        height: ${Math.random() * 60 + 20}%;
+        background: var(--accent);
+        border-radius: 2px;
+        animation: bodWaveformAnim ${Math.random() * 0.5 + 0.5}s ease-in-out infinite alternate;
+        animation-delay: ${i * 0.05}s;
+      `;
+      bodWaveform.appendChild(bar);
+    }
+  }
+  
+  // Add dynamic keyframes for Hub particles
+  const style = document.createElement("style");
+  style.textContent = `
+    @keyframes floatParticle {
+      0%, 100% { transform: translateY(0) translateX(0); opacity: 0.3; }
+      25% { transform: translateY(-30px) translateX(10px); opacity: 0.6; }
+      50% { transform: translateY(-10px) translateX(-10px); opacity: 0.4; }
+      75% { transform: translateY(-40px) translateX(5px); opacity: 0.5; }
+    }
+    @keyframes bodWaveformAnim {
+      0% { transform: scaleY(0.3); }
+      100% { transform: scaleY(1); }
+    }
+  `;
+  document.head.appendChild(style);
+}
+
+// ─── MOBILE MENU ──────────────────────────────────────────────────────────
+function setupMobileMenu() {
+  const mobileMenuBtn = document.getElementById("mobile-menu-btn");
+  const mobileMenu = document.getElementById("mobile-menu");
+  const mobileMenuClose = document.getElementById("mobile-menu-close");
+  const mobileMenuOverlay = document.getElementById("mobile-menu-overlay");
+  const mobileMenuLinks = document.querySelectorAll(".mobile-menu-link");
+  const mobileMenuActions = document.querySelectorAll(".mobile-menu-action");
+  
+  if (!mobileMenuBtn || !mobileMenu) return;
+  
+  function openMenu() {
+    mobileMenu.classList.add("active");
+    mobileMenuBtn.classList.add("active");
+    mobileMenuBtn.setAttribute("aria-expanded", "true");
+    mobileMenu.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
+    
+    // Staggered animations for menu items
+    mobileMenuLinks.forEach((link, index) => {
+      const delay = parseInt(link.dataset.delay) || index * 50;
+      link.style.transitionDelay = `${delay}ms`;
+    });
+    
+    mobileMenuActions.forEach((action, index) => {
+      const delay = parseInt(action.dataset.delay) || (index + 6) * 50;
+      action.style.transitionDelay = `${delay}ms`;
+    });
+    
+    // Update active state based on current section
+    updateActiveMenuLink();
+  }
+  
+  function closeMenu() {
+    mobileMenu.classList.remove("active");
+    mobileMenuBtn.classList.remove("active");
+    mobileMenuBtn.setAttribute("aria-expanded", "false");
+    mobileMenu.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "";
+    
+    // Reset transition delays
+    mobileMenuLinks.forEach(link => {
+      link.style.transitionDelay = "0ms";
+    });
+    
+    mobileMenuActions.forEach(action => {
+      action.style.transitionDelay = "0ms";
+    });
+  }
+  
+  function updateActiveMenuLink() {
+    const scrollPos = window.scrollY + 100;
+    const sections = document.querySelectorAll("section[id]");
+    
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.offsetHeight;
+      const sectionId = section.getAttribute("id");
+      
+      if (scrollPos >= sectionTop && scrollPos < sectionTop + sectionHeight) {
+        mobileMenuLinks.forEach(link => {
+          link.classList.remove("active");
+          if (link.getAttribute("href") === `#${sectionId}`) {
+            link.classList.add("active");
+          }
+        });
+      }
+    });
+  }
+  
+  mobileMenuBtn.addEventListener("click", openMenu);
+  mobileMenuClose.addEventListener("click", closeMenu);
+  mobileMenuOverlay.addEventListener("click", closeMenu);
+  
+  // Close on Escape key
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && mobileMenu.classList.contains("active")) {
+      closeMenu();
+    }
+  });
+  
+  // Close menu when clicking a link
+  mobileMenuLinks.forEach(link => {
+    link.addEventListener("click", () => {
+      closeMenu();
+    });
+  });
+  
+  // Update active link on scroll
+  window.addEventListener("scroll", () => {
+    if (mobileMenu.classList.contains("active")) {
+      updateActiveMenuLink();
+    }
+  });
+  
+  // Update Now Playing section
+  updateMobileMenuNowPlaying();
+}
+
+function updateMobileMenuNowPlaying() {
+  const nowPlayingSection = document.getElementById("mobile-menu-now-playing");
+  const npTitle = document.getElementById("mobile-menu-np-title");
+  const npGenre = document.getElementById("mobile-menu-np-genre");
+  const npInitials = document.getElementById("mobile-menu-np-initials");
+  const npPlayBtn = document.getElementById("mobile-menu-np-play");
+  
+  if (!nowPlayingSection) return;
+  
+  if (currentBeat) {
+    nowPlayingSection.classList.remove("hidden");
+    npTitle.textContent = currentBeat.title;
+    npGenre.textContent = `${currentBeat.genre} · ${currentBeat.bpm} BPM`;
+    npInitials.textContent = getInitials(currentBeat.title);
+    
+    if (isPlaying) {
+      npPlayBtn.classList.add("playing");
+    } else {
+      npPlayBtn.classList.remove("playing");
+    }
+    
+    npPlayBtn.onclick = () => {
+      togglePlayPause();
+      updateMobileMenuNowPlaying();
+    };
+  } else {
+    nowPlayingSection.classList.add("hidden");
+  }
 }
 
 // ─── PRODUCER ─────────────────────────────────────────────────────────────
@@ -432,6 +624,7 @@ function togglePlayPause() {
     clearInterval(progressTimer);
   }
   renderBeats(filteredBeats);
+  updateMobileMenuNowPlaying();
 }
 
 function updatePlayerInfo() {

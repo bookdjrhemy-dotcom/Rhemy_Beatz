@@ -31,7 +31,7 @@
     <a href="#hero">Home</a>
     <a href="#beats">Beat Store</a>
     <a href="#sound-perks">Sound Perks</a>
-    <a href="#the-hub">The Hub</a>
+    <a href="hub.html">The Hub</a>
     <a href="#services">Services</a>
     <a href="#about">About</a>
   </div>
@@ -48,8 +48,69 @@
     <button class="nav-action-btn" title="Login">
       <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
     </button>
+    <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Open menu" aria-expanded="false">
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
   </div>
 </nav>
+
+<!-- ═══════════════════════════════════════════ MOBILE MENU ══ -->
+<div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+  <div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
+  <div class="mobile-menu-panel">
+    <div class="mobile-menu-header">
+      <div class="mobile-menu-logo">RHEMY BEATZ</div>
+      <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close menu">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+    </div>
+    <div class="mobile-menu-content">
+      <nav class="mobile-menu-nav">
+        <a href="#hero" class="mobile-menu-link" data-delay="0">Home</a>
+        <a href="#beats" class="mobile-menu-link" data-delay="50">Beat Store</a>
+        <a href="#sound-perks" class="mobile-menu-link" data-delay="100">Sound Perks</a>
+        <a href="hub.html" class="mobile-menu-link" data-delay="150">The Hub</a>
+        <a href="#services" class="mobile-menu-link" data-delay="200">Services</a>
+        <a href="#about" class="mobile-menu-link" data-delay="250">About</a>
+      </nav>
+      <div class="mobile-menu-divider"></div>
+      <div class="mobile-menu-actions">
+        <a href="#" class="mobile-menu-action" data-delay="300">
+          <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+          Search
+        </a>
+        <a href="#" class="mobile-menu-action" data-delay="350">
+          <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+          Wishlist
+        </a>
+        <a href="#" class="mobile-menu-action" data-delay="400">
+          <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+          Cart
+        </a>
+        <a href="#" class="mobile-menu-action" data-delay="450">
+          <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+          Login
+        </a>
+      </div>
+      <div class="mobile-menu-now-playing" id="mobile-menu-now-playing">
+        <div class="mobile-menu-np-art" id="mobile-menu-np-art">
+          <span id="mobile-menu-np-initials"></span>
+        </div>
+        <div class="mobile-menu-np-info">
+          <div class="mobile-menu-np-title" id="mobile-menu-np-title">No beat playing</div>
+          <div class="mobile-menu-np-genre" id="mobile-menu-np-genre"></div>
+        </div>
+        <button class="mobile-menu-np-play" id="mobile-menu-np-play">
+          <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
 
 <!-- ═══════════════════════════════════════════ HERO ══ -->
 <section id="hero">
@@ -221,51 +282,36 @@
   </div>
 </section>
 
-<!-- ═══════════════════════════════════════════ THE HUB ══ -->
-<section id="the-hub">
+<!-- ═══════════════════════════════════════════ THE HUB PREVIEW ══ -->
+<section id="the-hub-preview">
   <div class="section-label">Content Hub</div>
-  <h2 class="section-title">The Hub</h2>
-  <p class="section-subtitle">Your destination for producer content, artist features, and industry insights.</p>
+  <h2 class="section-title">THE HUB</h2>
+  <p class="section-subtitle">Discover trending beats, fresh releases, producer stories, exclusive drops, curated collections, and everything happening inside the world of Rhemy Beatz.</p>
   <div class="section-divider"></div>
-  <div class="hub-grid">
-    <article class="hub-card featured">
-      <div class="hub-card-image" style="background: linear-gradient(135deg, #1a0a1a 0%, #2a1525 100%)">
-        <span class="hub-badge">Featured</span>
-      </div>
-      <div class="hub-card-content">
-        <div class="hub-meta">Latest Drop</div>
-        <h3 class="hub-title">New Beat Pack: "Midnight Sessions"</h3>
-        <p class="hub-excerpt">10 exclusive trap beats perfect for late-night studio sessions. Dark, cinematic, and ready for vocals.</p>
-        <a href="#" class="hub-link">Read More →</a>
-      </div>
-    </article>
-    <article class="hub-card">
-      <div class="hub-card-image" style="background: linear-gradient(135deg, #0a1a0a 0%, #152515 100%)"></div>
-      <div class="hub-card-content">
-        <div class="hub-meta">Producer Tips</div>
-        <h3 class="hub-title">5 Mixing Secrets for Punchy 808s</h3>
-        <p class="hub-excerpt">Learn the techniques I use to make 808s cut through any mix while maintaining clarity and power.</p>
-        <a href="#" class="hub-link">Read More →</a>
-      </div>
-    </article>
-    <article class="hub-card">
-      <div class="hub-card-image" style="background: linear-gradient(135deg, #1a1a0a 0%, #252515 100%)"></div>
-      <div class="hub-card-content">
-        <div class="hub-meta">Artist Spotlight</div>
-        <h3 class="hub-title">Breaking Down: Artist X's Journey</h3>
-        <p class="hub-excerpt">How one artist went from bedroom recordings to 1M+ streams using our beats.</p>
-        <a href="#" class="hub-link">Read More →</a>
-      </div>
-    </article>
-    <article class="hub-card">
-      <div class="hub-card-image" style="background: linear-gradient(135deg, #0a0a1a 0%, #151525 100%)"></div>
-      <div class="hub-card-content">
-        <div class="hub-meta">Behind the Scenes</div>
-        <h3 class="hub-title">Studio Tour: My Setup</h3>
-        <p class="hub-excerpt">A look inside my production studio, the gear I use, and my workflow for creating hits.</p>
-        <a href="#" class="hub-link">Read More →</a>
-      </div>
-    </article>
+  <div class="hub-preview-content">
+    <div class="hub-preview-card">
+      <div class="hub-preview-icon">🎵</div>
+      <h3 class="hub-preview-title">Beat of the Day</h3>
+      <p class="hub-preview-desc">Featured daily selection with premium showcase</p>
+    </div>
+    <div class="hub-preview-card">
+      <div class="hub-preview-icon">🔥</div>
+      <h3 class="hub-preview-title">Trending This Week</h3>
+      <p class="hub-preview-desc">Most popular beats right now</p>
+    </div>
+    <div class="hub-preview-card">
+      <div class="hub-preview-icon">🆕</div>
+      <h3 class="hub-preview-title">Fresh Drops</h3>
+      <p class="hub-preview-desc">Latest releases and new additions</p>
+    </div>
+    <div class="hub-preview-card">
+      <div class="hub-preview-icon">⭐</div>
+      <h3 class="hub-preview-title">Editor's Picks</h3>
+      <p class="hub-preview-desc">Curated selections with producer notes</p>
+    </div>
+  </div>
+  <div class="hub-preview-cta">
+    <a href="hub.html" class="btn btn-primary btn-large">Explore The Hub →</a>
   </div>
 </section>
 
@@ -445,7 +491,7 @@
         <li><a href="#hero">Home</a></li>
         <li><a href="#beats">Beat Store</a></li>
         <li><a href="#sound-perks">Sound Perks</a></li>
-        <li><a href="#the-hub">The Hub</a></li>
+        <li><a href="hub.html">The Hub</a></li>
         <li><a href="#services">Services</a></li>
         <li><a href="#about">About</a></li>
       </ul>

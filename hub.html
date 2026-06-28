@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Hub | Rhemy Beatz</title>
+  <meta name="description" content="Discover trending beats, fresh releases, producer stories, exclusive drops, curated collections, and everything happening inside the world of Rhemy Beatz." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════ LOADING SCREEN ══ -->
+<div class="loading-screen" id="loading-screen">
+  <div class="loading-particles" id="loading-particles"></div>
+  <div class="loading-noise"></div>
+  <div class="loading-vignette"></div>
+  <div class="loading-content">
+    <div class="loading-wordmark">RHEMY BEATZ</div>
+    <div class="loading-waveform" id="loading-waveform"></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ CUSTOM CURSOR ══ -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+
+<!-- ═══════════════════════════════════════════ NAV ══ -->
+<nav id="nav">
+  <a href="index.html" class="nav-logo">RHEMY BEATZ</a>
+  <div class="nav-links">
+    <a href="index.html">Home</a>
+    <a href="index.html#beats">Beat Store</a>
+    <a href="index.html#sound-perks">Sound Perks</a>
+    <a href="hub.html" class="active">The Hub</a>
+    <a href="index.html#services">Services</a>
+    <a href="index.html#about">About</a>
+  </div>
+  <div class="nav-actions">
+    <button class="nav-action-btn" title="Search">
+      <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+    </button>
+    <button class="nav-action-btn" title="Wishlist">
+      <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+    </button>
+    <button class="nav-action-btn" title="Cart">
+      <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+    </button>
+    <button class="nav-action-btn" title="Login">
+      <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+    </button>
+    <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Open menu" aria-expanded="false">
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════ MOBILE MENU ══ -->
+<div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+  <div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
+  <div class="mobile-menu-panel">
+    <div class="mobile-menu-header">
+      <div class="mobile-menu-logo">RHEMY BEATZ</div>
+      <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close menu">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+    </div>
+    <div class="mobile-menu-content">
+      <nav class="mobile-menu-nav">
+        <a href="index.html" class="mobile-menu-link" data-delay="0">Home</a>
+        <a href="index.html#beats" class="mobile-menu-link" data-delay="50">Beat Store</a>
+        <a href="index.html#sound-perks" class="mobile-menu-link" data-delay="100">Sound Perks</a>
+        <a href="hub.html" class="mobile-menu-link active" data-delay="150">The Hub</a>
+        <a href="index.html#services" class="mobile-menu-link" data-delay="200">Services</a>
+        <a href="index.html#about" class="mobile-menu-link" data-delay="250">About</a>
+      </nav>
+      <div class="mobile-menu-divider"></div>
+      <div class="mobile-menu-actions">
+        <a href="#" class="mobile-menu-action" data-delay="300">
+          <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+          Search
+        </a>
+        <a href="#" class="mobile-menu-action" data-delay="350">
+          <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+          Wishlist
+        </a>
+        <a href="#" class="mobile-menu-action" data-delay="400">
+          <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+          Cart
+        </a>
+        <a href="#" class="mobile-menu-action" data-delay="450">
+          <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+          Login
+        </a>
+      </div>
+      <div class="mobile-menu-now-playing" id="mobile-menu-now-playing">
+        <div class="mobile-menu-np-art" id="mobile-menu-np-art">
+          <span id="mobile-menu-np-initials"></span>
+        </div>
+        <div class="mobile-menu-np-info">
+          <div class="mobile-menu-np-title" id="mobile-menu-np-title">No beat playing</div>
+          <div class="mobile-menu-np-genre" id="mobile-menu-np-genre"></div>
+        </div>
+        <button class="mobile-menu-np-play" id="mobile-menu-np-play">
+          <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+          <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ THE HUB ══ -->
+<section id="the-hub">
+  <!-- Hero -->
+  <div class="hub-hero">
+    <div class="hub-hero-bg"></div>
+    <div class="hub-hero-overlay"></div>
+    <div class="hub-hero-noise"></div>
+    <div class="hub-hero-particles" id="hub-hero-particles"></div>
+    <div class="hub-hero-content">
+      <div class="section-label">Welcome</div>
+      <h1 class="hub-hero-title">THE HUB</h1>
+      <p class="hub-hero-subtitle">Discover the latest beats, trending sounds, producer stories, exclusive drops, creative resources, and everything happening inside the world of Rhemy Beatz.</p>
+      <div class="hub-hero-scroll">
+        <div class="scroll-text">SCROLL</div>
+        <div class="scroll-arrow">
+          <svg viewBox="0 0 24 24"><path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/></svg>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Beat of the Day -->
+  <div class="hub-section">
+    <div class="section-label">Featured</div>
+    <h2 class="section-title">⭐ Beat of the Day</h2>
+    <div class="section-divider"></div>
+    <div class="beat-of-day">
+      <div class="bod-artwork" style="background: linear-gradient(135deg, #1a0a1a 0%, #2a1525 100%)">
+        <span class="bod-initials">MS</span>
+        <div class="bod-waveform" id="bod-waveform"></div>
+      </div>
+      <div class="bod-content">
+        <div class="bod-badge">⭐ Beat of the Day</div>
+        <h3 class="bod-title">Midnight Sessions</h3>
+        <p class="bod-desc">Dark cinematic trap beat with haunting melodies and hard-hitting 808s. Perfect for late-night studio sessions and introspective tracks.</p>
+        <div class="bod-meta">
+          <span class="bod-tag">Trap</span>
+          <span class="bod-tag">140 BPM</span>
+          <span class="bod-tag">C Minor</span>
+          <span class="bod-tag">3:24</span>
+        </div>
+        <div class="bod-producer">Produced by RHEMY BEATZ</div>
+        <div class="bod-price">$49.99</div>
+        <div class="bod-actions">
+          <button class="btn btn-primary" onclick="playBeat(1)">
+            <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            Listen Now
+          </button>
+          <button class="btn btn-outline">
+            <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+            Buy License
+          </button>
+          <button class="bod-wishlist" title="Add to Wishlist">
+            <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Trending This Week -->
+  <div class="hub-section">
+    <div class="section-label">Trending</div>
+    <h2 class="section-title">🔥 Trending This Week</h2>
+    <div class="section-divider"></div>
+    <div class="trending-carousel">
+      <div class="trending-card">
+        <div class="trending-artwork" style="background: linear-gradient(135deg, #0a1a0a 0%, #152515 100%)">
+          <span class="trending-badge">🔥 #1</span>
+          <div class="trending-waveform"></div>
+        </div>
+        <div class="trending-info">
+          <h3 class="trending-title">Neon Dreams</h3>
+          <div class="trending-meta">Trap · 145 BPM</div>
+        </div>
+      </div>
+      <div class="trending-card">
+        <div class="trending-artwork" style="background: linear-gradient(135deg, #1a0a0a 0%, #252515 100%)">
+          <span class="trending-badge">🔥 #2</span>
+          <div class="trending-waveform"></div>
+        </div>
+        <div class="trending-info">
+          <h3 class="trending-title">Chill Vibes</h3>
+          <div class="trending-meta">Lo-Fi · 85 BPM</div>
+        </div>
+      </div>
+      <div class="trending-card">
+        <div class="trending-artwork" style="background: linear-gradient(135deg, #0a0a1a 0%, #151525 100%)">
+          <span class="trending-badge">🔥 #3</span>
+          <div class="trending-waveform"></div>
+        </div>
+        <div class="trending-info">
+          <h3 class="trending-title">Dark Energy</h3>
+          <div class="trending-meta">Drill · 140 BPM</div>
+        </div>
+      </div>
+      <div class="trending-card">
+        <div class="trending-artwork" style="background: linear-gradient(135deg, #1a1a0a 0%, #252515 100%)">
+          <span class="trending-badge">🔥 #4</span>
+          <div class="trending-waveform"></div>
+        </div>
+        <div class="trending-info">
+          <h3 class="trending-title">Summer Heat</h3>
+          <div class="trending-meta">Afrobeats · 115 BPM</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Best Sellers -->
+  <div class="hub-section">
+    <div class="section-label">Popular</div>
+    <h2 class="section-title">👑 Best Sellers</h2>
+    <div class="section-divider"></div>
+    <div class="bestsellers-grid">
+      <div class="bestseller-card">
+        <div class="bestseller-artwork" style="background: linear-gradient(135deg, #1a0a1a 0%, #2a1525 100%)">
+          <span class="bestseller-badge">👑 #1</span>
+        </div>
+        <div class="bestseller-info">
+          <h3 class="bestseller-title">Midnight Run</h3>
+          <div class="bestseller-meta">Trap · $49.99</div>
+          <div class="bestseller-actions">
+            <button class="bestseller-play" title="Quick Play">
+              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+            <button class="bestseller-buy" title="Quick Buy">
+              <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="bestseller-card">
+        <div class="bestseller-artwork" style="background: linear-gradient(135deg, #0a1a0a 0%, #152515 100%)">
+          <span class="bestseller-badge">👑 #2</span>
+        </div>
+        <div class="bestseller-info">
+          <h3 class="bestseller-title">Empire State</h3>
+          <div class="bestseller-meta">Drill · $39.99</div>
+          <div class="bestseller-actions">
+            <button class="bestseller-play" title="Quick Play">
+              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+            <button class="bestseller-buy" title="Quick Buy">
+              <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="bestseller-card">
+        <div class="bestseller-artwork" style="background: linear-gradient(135deg, #1a1a0a 0%, #252515 100%)">
+          <span class="bestseller-badge">👑 #3</span>
+        </div>
+        <div class="bestseller-info">
+          <h3 class="bestseller-title">Ocean Drive</h3>
+          <div class="bestseller-meta">R&B · $29.99</div>
+          <div class="bestseller-actions">
+            <button class="bestseller-play" title="Quick Play">
+              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+            <button class="bestseller-buy" title="Quick Buy">
+              <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="bestseller-card">
+        <div class="bestseller-artwork" style="background: linear-gradient(135deg, #0a0a1a 0%, #151525 100%)">
+          <span class="bestseller-badge">👑 #4</span>
+        </div>
+        <div class="bestseller-info">
+          <h3 class="bestseller-title">Night Owl</h3>
+          <div class="bestseller-meta">Lo-Fi · $24.99</div>
+          <div class="bestseller-actions">
+            <button class="bestseller-play" title="Quick Play">
+              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+            <button class="bestseller-buy" title="Quick Buy">
+              <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Fresh Drops -->
+  <div class="hub-section">
+    <div class="section-label">New Releases</div>
+    <h2 class="section-title">🆕 Fresh Drops</h2>
+    <div class="section-divider"></div>
+    <div class="fresh-drops-grid">
+      <div class="fresh-drop-card">
+        <div class="fresh-drop-artwork" style="background: linear-gradient(135deg, #1a0a1a 0%, #2a1525 100%)">
+          <span class="fresh-badge">🆕 NEW</span>
+        </div>
+        <div class="fresh-drop-info">
+          <h3 class="fresh-drop-title">Cyber City</h3>
+          <div class="fresh-drop-date">Released Today</div>
+          <div class="fresh-drop-meta">Trap · $44.99</div>
+        </div>
+      </div>
+      <div class="fresh-drop-card">
+        <div class="fresh-drop-artwork" style="background: linear-gradient(135deg, #0a1a0a 0%, #152515 100%)">
+          <span class="fresh-badge">🆕 NEW</span>
+        </div>
+        <div class="fresh-drop-info">
+          <h3 class="fresh-drop-title">Soulful Sunday</h3>
+          <div class="fresh-drop-date">Released Yesterday</div>
+          <div class="fresh-drop-meta">R&B · $34.99</div>
+        </div>
+      </div>
+      <div class="fresh-drop-card">
+        <div class="fresh-drop-artwork" style="background: linear-gradient(135deg, #1a1a0a 0%, #252515 100%)">
+          <span class="fresh-badge">🆕 NEW</span>
+        </div>
+        <div class="fresh-drop-info">
+          <h3 class="fresh-drop-title">Grind Mode</h3>
+          <div class="fresh-drop-date">Released 2 Days Ago</div>
+          <div class="fresh-drop-meta">Drill · $39.99</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Editor's Picks -->
+  <div class="hub-section">
+    <div class="section-label">Curated</div>
+    <h2 class="section-title">⭐ Editor's Picks</h2>
+    <div class="section-divider"></div>
+    <div class="editors-picks">
+      <div class="editors-pick-card">
+        <div class="editors-pick-artwork" style="background: linear-gradient(135deg, #1a0a1a 0%, #2a1525 100%)"></div>
+        <div class="editors-pick-content">
+          <h3 class="editors-pick-title">Cinematic Dreams</h3>
+          <p class="editors-pick-note">"This beat has been my go-to for cinematic storytelling. The orchestral elements blend perfectly with modern trap drums."</p>
+          <div class="editors-pick-meta">Trap · $49.99</div>
+        </div>
+      </div>
+      <div class="editors-pick-card">
+        <div class="editors-pick-artwork" style="background: linear-gradient(135deg, #0a1a0a 0%, #152515 100%)"></div>
+        <div class="editors-pick-content">
+          <h3 class="editors-pick-title">Summer Nights</h3>
+          <p class="editors-pick-note">"Perfect for those feel-good tracks. The melody catches you immediately and stays with you."</p>
+          <div class="editors-pick-meta">Afrobeats · $39.99</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Browse by Mood -->
+  <div class="hub-section">
+    <div class="section-label">Discover</div>
+    <h2 class="section-title">🎧 Browse by Mood</h2>
+    <div class="section-divider"></div>
+    <div class="mood-grid">
+      <a href="index.html#beats" class="mood-card" data-mood="aggressive">
+        <div class="mood-icon">⚡</div>
+        <h3 class="mood-name">Aggressive</h3>
+      </a>
+      <a href="index.html#beats" class="mood-card" data-mood="chill">
+        <div class="mood-icon">🌊</div>
+        <h3 class="mood-name">Chill</h3>
+      </a>
+      <a href="index.html#beats" class="mood-card" data-mood="emotional">
+        <div class="mood-icon">💔</div>
+        <h3 class="mood-name">Emotional</h3>
+      </a>
+      <a href="index.html#beats" class="mood-card" data-mood="late-night">
+        <div class="mood-icon">🌙</div>
+        <h3 class="mood-name">Late Night</h3>
+      </a>
+      <a href="index.html#beats" class="mood-card" data-mood="victory">
+        <div class="mood-icon">🏆</div>
+        <h3 class="mood-name">Victory</h3>
+      </a>
+      <a href="index.html#beats" class="mood-card" data-mood="motivational">
+        <div class="mood-icon">💪</div>
+        <h3 class="mood-name">Motivational</h3>
+      </a>
+      <a href="index.html#beats" class="mood-card" data-mood="romantic">
+        <div class="mood-icon">❤️</div>
+        <h3 class="mood-name">Romantic</h3>
+      </a>
+      <a href="index.html#beats" class="mood-card" data-mood="energetic">
+        <div class="mood-icon">🔥</div>
+        <h3 class="mood-name">Energetic</h3>
+      </a>
+    </div>
+  </div>
+
+  <!-- Browse by Genre -->
+  <div class="hub-section">
+    <div class="section-label">Explore</div>
+    <h2 class="section-title">🎵 Browse by Genre</h2>
+    <div class="section-divider"></div>
+    <div class="hub-genres-grid">
+      <a href="index.html#beats" class="hub-genre-card" data-genre="Afrobeats">
+        <div class="hub-genre-bg" style="background: linear-gradient(135deg, #1a0a00 0%, #2a1505 100%)"></div>
+        <div class="hub-genre-content">
+          <h3 class="hub-genre-name">Afrobeats</h3>
+        </div>
+      </a>
+      <a href="index.html#beats" class="hub-genre-card" data-genre="Trap">
+        <div class="hub-genre-bg" style="background: linear-gradient(135deg, #0a0a1a 0%, #151525 100%)"></div>
+        <div class="hub-genre-content">
+          <h3 class="hub-genre-name">Trap</h3>
+        </div>
+      </a>
+      <a href="index.html#beats" class="hub-genre-card" data-genre="Drill">
+        <div class="hub-genre-bg" style="background: linear-gradient(135deg, #0a0f0a 0%, #151a15 100%)"></div>
+        <div class="hub-genre-content">
+          <h3 class="hub-genre-name">Drill</h3>
+        </div>
+      </a>
+      <a href="index.html#beats" class="hub-genre-card" data-genre="Hip-Hop">
+        <div class="hub-genre-bg" style="background: linear-gradient(135deg, #1a0a0a 0%, #252515 100%)"></div>
+        <div class="hub-genre-content">
+          <h3 class="hub-genre-name">Hip-Hop</h3>
+        </div>
+      </a>
+      <a href="index.html#beats" class="hub-genre-card" data-genre="Amapiano">
+        <div class="hub-genre-bg" style="background: linear-gradient(135deg, #0a0a05 0%, #151510 100%)"></div>
+        <div class="hub-genre-content">
+          <h3 class="hub-genre-name">Amapiano</h3>
+        </div>
+      </a>
+      <a href="index.html#beats" class="hub-genre-card" data-genre="Dancehall">
+        <div class="hub-genre-bg" style="background: linear-gradient(135deg, #0a0a00 0%, #151510 100%)"></div>
+        <div class="hub-genre-content">
+          <h3 class="hub-genre-name">Dancehall</h3>
+        </div>
+      </a>
+      <a href="index.html#beats" class="hub-genre-card" data-genre="R&B">
+        <div class="hub-genre-bg" style="background: linear-gradient(135deg, #0a050a 0%, #151015 100%)"></div>
+        <div class="hub-genre-content">
+          <h3 class="hub-genre-name">R&B</h3>
+        </div>
+      </a>
+      <a href="index.html#beats" class="hub-genre-card" data-genre="Pop">
+        <div class="hub-genre-bg" style="background: linear-gradient(135deg, #050a0a 0%, #101515 100%)"></div>
+        <div class="hub-genre-content">
+          <h3 class="hub-genre-name">Pop</h3>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- Exclusive Drops -->
+  <div class="hub-section">
+    <div class="section-label">Premium</div>
+    <h2 class="section-title">🔒 Exclusive Drops</h2>
+    <div class="section-divider"></div>
+    <div class="exclusive-section">
+      <div class="exclusive-card">
+        <div class="exclusive-lock">
+          <svg viewBox="0 0 24 24"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+        </div>
+        <h3 class="exclusive-title">Premium Beats Available</h3>
+        <p class="exclusive-desc">Unlock exclusive beats, early access to new releases, and special discounts by joining our newsletter.</p>
+        <button class="btn btn-primary">Unlock Exclusive Beats</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Producer Journal -->
+  <div class="hub-section">
+    <div class="section-label">Journal</div>
+    <h2 class="section-title">📰 Producer Journal</h2>
+    <div class="section-divider"></div>
+    <div class="journal-grid">
+      <article class="journal-card">
+        <div class="journal-image" style="background: linear-gradient(135deg, #1a0a1a 0%, #2a1525 100%)"></div>
+        <div class="journal-content">
+          <div class="journal-category">Behind the Scenes</div>
+          <h3 class="journal-title">Behind Midnight Run</h3>
+          <p class="journal-excerpt">The creative process behind one of my most popular beats. From initial inspiration to final mix.</p>
+          <a href="#" class="journal-link">Read More →</a>
+        </div>
+      </article>
+      <article class="journal-card">
+        <div class="journal-image" style="background: linear-gradient(135deg, #0a1a0a 0%, #152515 100%)"></div>
+        <div class="journal-content">
+          <div class="journal-category">Studio Tour</div>
+          <h3 class="journal-title">Studio Setup Tour</h3>
+          <p class="journal-excerpt">A complete walkthrough of my production setup, including gear, software, and workflow.</p>
+          <a href="#" class="journal-link">Read More →</a>
+        </div>
+      </article>
+      <article class="journal-card">
+        <div class="journal-image" style="background: linear-gradient(135deg, #1a1a0a 0%, #252515 100%)"></div>
+        <div class="journal-content">
+          <div class="journal-category">Beat Breakdown</div>
+          <h3 class="journal-title">Beat Breakdown: Layering</h3>
+          <p class="journal-excerpt">How I layer sounds to create depth and texture in my productions.</p>
+          <a href="#" class="journal-link">Read More →</a>
+        </div>
+      </article>
+    </div>
+  </div>
+
+  <!-- Quick Actions -->
+  <div class="hub-section">
+    <div class="section-label">Quick Access</div>
+    <h2 class="section-title">⚡ Quick Actions</h2>
+    <div class="section-divider"></div>
+    <div class="quick-actions-grid">
+      <a href="index.html#beats" class="quick-action-card">
+        <div class="quick-action-icon">🎵</div>
+        <h3 class="quick-action-title">Browse All Beats</h3>
+      </a>
+      <a href="index.html#beats" class="quick-action-card">
+        <div class="quick-action-icon">🔒</div>
+        <h3 class="quick-action-title">Exclusive Beats</h3>
+      </a>
+      <a href="index.html#sound-perks" class="quick-action-card">
+        <div class="quick-action-icon">🎁</div>
+        <h3 class="quick-action-title">Free Downloads</h3>
+      </a>
+      <a href="index.html#services" class="quick-action-card">
+        <div class="quick-action-icon">🎹</div>
+        <h3 class="quick-action-title">Book Custom Beat</h3>
+      </a>
+      <a href="index.html#contact" class="quick-action-card">
+        <div class="quick-action-icon">✉️</div>
+        <h3 class="quick-action-title">Contact</h3>
+      </a>
+      <a href="#" class="quick-action-card">
+        <div class="quick-action-icon">❤️</div>
+        <h3 class="quick-action-title">Wishlist</h3>
+      </a>
+    </div>
+  </div>
+
+  <!-- Final CTA -->
+  <div class="hub-section hub-cta-section">
+    <div class="hub-cta">
+      <h2 class="hub-cta-title">READY TO FIND YOUR NEXT HIT?</h2>
+      <p class="hub-cta-subtitle">Thousands of sounds. One signature style. One producer. One destination.</p>
+      <a href="index.html#beats" class="btn btn-primary btn-large">BROWSE ALL BEATS</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════ FOOTER ══ -->
+<footer id="footer">
+  <div class="footer-content">
+    <div class="footer-brand">
+      <div class="footer-monogram">RB</div>
+      <div class="footer-name">RHEMY BEATZ</div>
+      <p class="footer-tagline">High Quality Beats For Artists Who Want To Win.</p>
+    </div>
+    <div class="footer-nav">
+      <div class="footer-column">
+        <h4 class="footer-title">Navigation</h4>
+        <a href="index.html">Home</a>
+        <a href="index.html#beats">Beat Store</a>
+        <a href="index.html#sound-perks">Sound Perks</a>
+        <a href="hub.html">The Hub</a>
+        <a href="index.html#services">Services</a>
+        <a href="index.html#about">About</a>
+      </div>
+      <div class="footer-column">
+        <h4 class="footer-title">Resources</h4>
+        <a href="#">FAQ</a>
+        <a href="#">Licensing</a>
+        <a href="#">Terms of Service</a>
+        <a href="#">Privacy Policy</a>
+      </div>
+      <div class="footer-column">
+        <h4 class="footer-title">Connect</h4>
+        <a href="https://instagram.com" target="_blank">Instagram</a>
+        <a href="https://youtube.com" target="_blank">YouTube</a>
+        <a href="https://tiktok.com" target="_blank">TikTok</a>
+        <a href="mailto:bookdjrhemy@gmail.com">Email</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p class="footer-copyright">© 2024 RHEMY BEATZ. All rights reserved.</p>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════════════ PLAYER ══ -->
+<div id="player">
+  <div class="player-art" id="player-art">
+    <span id="player-art-initials"></span>
+  </div>
+  <div class="player-info">
+    <div class="player-title" id="player-title">No beat playing</div>
+    <div class="player-genre" id="player-genre"></div>
+  </div>
+  <div class="player-controls">
+    <button class="player-btn" id="prev-btn" title="Previous">
+      <svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+    </button>
+    <button class="player-btn play-pause-btn" id="play-pause-btn" title="Play/Pause">
+      <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+    </button>
+    <button class="player-btn" id="next-btn" title="Next">
+      <svg viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+    </button>
+  </div>
+  <div class="player-progress">
+    <div class="progress-bar" id="progress-bar">
+      <div class="progress-fill" id="progress-fill"></div>
+    </div>
+    <div class="progress-time">
+      <span id="current-time">0:00</span>
+      <span id="total-time">0:00</span>
+    </div>
+  </div>
+  <div class="player-volume">
+    <button class="volume-btn" id="volume-btn" title="Volume">
+      <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
+    </button>
+    <div class="volume-slider" id="volume-slider">
+      <div class="volume-fill" id="volume-fill"></div>
+    </div>
+  </div>
+  <div class="player-waveform" id="player-waveform"></div>
+</div>
+
+<!-- ═══════════════════════════════════════════ SCRIPT ══ -->
+<script src="script.js"></script>
+
+</body>
+</html>
