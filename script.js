@@ -94,22 +94,41 @@ const audioEl = document.getElementById("audio");
 
 // ─── INIT ─────────────────────────────────────────────────────────────────
 function init() {
-  setupLoadingScreen();
+  // Always run these
   setupCursor();
   setupNavScroll();
-  setupHeroParallax();
-  setupScrollIndicator();
   setupMobileMenu();
+
+  // Page-specific setup
+  if (document.getElementById("loading-screen")) {
+    setupLoadingScreen();
+  }
+  if (document.getElementById("hero-bg")) {
+    setupHeroParallax();
+  }
+  if (document.getElementById("scroll-indicator")) {
+    setupScrollIndicator();
+  }
   // Only run setupHubHero if on hub.html
   if (window.location.pathname.includes('hub.html') || window.location.pathname.endsWith('/hub')) {
     setupHubHero();
   }
-  renderProducer();
-  renderBeats(BEATS);
-  setupFilters();
-  setupPlayer();
-  setupContact();
-  setupModal();
+  if (document.getElementById("hero-name")) {
+    renderProducer();
+  }
+  if (document.getElementById("beats-grid")) {
+    renderBeats(BEATS);
+    setupFilters();
+  }
+  if (document.getElementById("player")) {
+    setupPlayer();
+  }
+  if (document.getElementById("contact-form")) {
+    setupContact();
+  }
+  if (document.getElementById("modal-overlay")) {
+    setupModal();
+  }
 }
 
 // ─── LOADING SCREEN ───────────────────────────────────────────────────────

@@ -1,0 +1,1800 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Wishlist | RHEMY BEATZ</title>
+  <meta name="description" content="Your personal wishlist for RHEMY BEATZ. Save beats that inspire you and come back anytime to purchase." />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ─── WISHLIST PAGE STYLES ───────────────────────── */
+    .wishlist-page {
+      min-height: 100vh;
+      background: var(--bg);
+      padding-top: 90px;
+      padding-bottom: 120px;
+    }
+
+    /* ─── HERO SECTION ─────────────────────────────── */
+    .wishlist-hero {
+      position: relative;
+      padding: 80px 48px;
+      background: linear-gradient(135deg, rgba(5,5,5,0.95) 0%, rgba(10,10,10,0.98) 100%);
+      border-bottom: 1px solid var(--border);
+      overflow: hidden;
+    }
+
+    .wishlist-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse 70% 50% at 30% 40%, rgba(216,31,38,0.12) 0%, transparent 60%);
+      pointer-events: none;
+    }
+
+    .wishlist-hero-noise {
+      position: absolute;
+      inset: 0;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+
+    .wishlist-hero-particles {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+
+    .wishlist-hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .wishlist-hero-label {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+
+    .wishlist-hero-title {
+      font-family: 'Bebas Neue', 'Anton', sans-serif;
+      font-size: clamp(56px, 8vw, 96px);
+      font-weight: 400;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--text);
+      line-height: 1.1;
+      margin-bottom: 24px;
+    }
+
+    .wishlist-hero-subtitle {
+      font-size: 16px;
+      line-height: 1.8;
+      color: var(--text-muted);
+      max-width: 700px;
+    }
+
+    /* ─── STATS CARDS ──────────────────────────────── */
+    .wishlist-stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+      margin-top: 48px;
+    }
+
+    .stat-card {
+      background: rgba(23, 23, 23, 0.6);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      transition: all 0.3s ease;
+      animation: statFadeIn 0.6s ease both;
+    }
+
+    .stat-card:nth-child(1) { animation-delay: 0.1s; }
+    .stat-card:nth-child(2) { animation-delay: 0.2s; }
+    .stat-card:nth-child(3) { animation-delay: 0.3s; }
+    .stat-card:nth-child(4) { animation-delay: 0.4s; }
+
+    @keyframes statFadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .stat-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(216,31,38,0.3);
+      box-shadow: 0 8px 32px rgba(216,31,38,0.15);
+    }
+
+    .stat-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: rgba(216,31,38,0.1);
+      border: 1px solid rgba(216,31,38,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      flex-shrink: 0;
+    }
+
+    .stat-info {
+      flex: 1;
+    }
+
+    .stat-number {
+      font-family: 'Bebas Neue', 'Anton', sans-serif;
+      font-size: 32px;
+      font-weight: 400;
+      color: var(--text);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+
+    .stat-label {
+      font-size: 12px;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+    }
+
+    /* ─── SEARCH & FILTERS SECTION ──────────────────── */
+    .wishlist-filters-section {
+      padding: 32px 48px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(5,5,5,0.5);
+    }
+
+    .wishlist-filters-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 24px;
+    }
+
+    .wishlist-filters-title {
+      font-family: 'Bebas Neue', 'Anton', sans-serif;
+      font-size: 24px;
+      color: var(--text);
+      letter-spacing: 0.05em;
+    }
+
+    .bulk-actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    .bulk-btn {
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .bulk-btn.primary {
+      background: var(--accent);
+      border: none;
+      color: #fff;
+    }
+
+    .bulk-btn.primary:hover {
+      background: var(--accent-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(216,31,38,0.4);
+    }
+
+    .bulk-btn.secondary {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    .bulk-btn.secondary:hover {
+      border-color: var(--accent);
+      background: rgba(216,31,38,0.1);
+    }
+
+    .wishlist-filters {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .filter-input {
+      flex: 1;
+      min-width: 200px;
+      padding: 12px 20px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+
+    .filter-input:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 20px rgba(216,31,38,0.2);
+    }
+
+    .filter-select {
+      padding: 12px 20px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--bg-card);
+      color: var(--text);
+      font-size: 14px;
+      outline: none;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .filter-select:focus {
+      border-color: var(--accent);
+    }
+
+    /* ─── WISHLIST GRID ─────────────────────────────── */
+    .wishlist-section {
+      padding: 48px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .wishlist-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+
+    .wishlist-card {
+      background: rgba(23, 23, 23, 0.6);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      animation: cardFadeIn 0.5s ease both;
+    }
+
+    @keyframes cardFadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .wishlist-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(216,31,38,0.3);
+      box-shadow: 0 12px 40px rgba(216,31,38,0.2);
+    }
+
+    .wishlist-card-art {
+      width: 100%;
+      aspect-ratio: 1;
+      background: linear-gradient(135deg, #0a0a1a 0%, #151525 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .wishlist-card-art::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(216,31,38,0.2) 0%, transparent 50%);
+    }
+
+    .wishlist-card-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .wishlist-card:hover .wishlist-card-overlay {
+      opacity: 1;
+    }
+
+    .wishlist-card-play {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .wishlist-card-play:hover {
+      transform: scale(1.1);
+      background: var(--accent-hover);
+    }
+
+    .wishlist-card-play svg {
+      width: 24px;
+      height: 24px;
+      fill: #fff;
+    }
+
+    .wishlist-card-body {
+      padding: 20px;
+    }
+
+    .wishlist-card-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 8px;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+
+    .wishlist-card-title:hover {
+      color: var(--accent);
+    }
+
+    .wishlist-card-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .wishlist-card-tag {
+      padding: 4px 10px;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .wishlist-card-price {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--accent);
+      font-family: 'Bebas Neue', 'Anton', sans-serif;
+      margin-bottom: 16px;
+    }
+
+    .wishlist-card-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .wishlist-card-btn {
+      flex: 1;
+      padding: 10px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: transparent;
+      color: var(--text);
+      font-size: 11px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .wishlist-card-btn:hover {
+      border-color: var(--accent);
+      background: rgba(216,31,38,0.1);
+    }
+
+    .wishlist-card-btn.primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: #fff;
+    }
+
+    .wishlist-card-btn.primary:hover {
+      background: var(--accent-hover);
+    }
+
+    .wishlist-card-btn.danger {
+      color: var(--accent);
+    }
+
+    .wishlist-card-btn.danger:hover {
+      background: rgba(216,31,38,0.1);
+    }
+
+    .wishlist-card-btn svg {
+      width: 16px;
+      height: 16px;
+      fill: currentColor;
+    }
+
+    .wishlist-card-date {
+      font-size: 11px;
+      color: var(--text-dim);
+      margin-top: 12px;
+    }
+
+    /* ─── EMPTY STATE ───────────────────────────────── */
+    .wishlist-empty {
+      text-align: center;
+      padding: 80px 48px;
+      display: none;
+    }
+
+    .wishlist-empty.show {
+      display: block;
+    }
+
+    .empty-illustration {
+      font-size: 120px;
+      margin-bottom: 32px;
+      opacity: 0.5;
+    }
+
+    .empty-title {
+      font-family: 'Bebas Neue', 'Anton', sans-serif;
+      font-size: 48px;
+      color: var(--text);
+      margin-bottom: 16px;
+    }
+
+    .empty-subtitle {
+      font-size: 16px;
+      color: var(--text-muted);
+      max-width: 500px;
+      margin: 0 auto 32px;
+    }
+
+    .empty-actions {
+      display: flex;
+      gap: 16px;
+      justify-content: center;
+    }
+
+    /* ─── RECOMMENDED SECTION ───────────────────────── */
+    .recommended-section {
+      padding: 48px;
+      max-width: 1400px;
+      margin: 0 auto;
+      border-top: 1px solid var(--border);
+    }
+
+    .recommended-header {
+      margin-bottom: 32px;
+    }
+
+    .recommended-label {
+      font-size: 12px;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 8px;
+    }
+
+    .recommended-title {
+      font-family: 'Bebas Neue', 'Anton', sans-serif;
+      font-size: 32px;
+      color: var(--text);
+      letter-spacing: 0.05em;
+    }
+
+    .recommended-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 20px;
+    }
+
+    /* ─── QUICK ACTIONS ─────────────────────────────── */
+    .quick-actions-section {
+      padding: 48px;
+      max-width: 1400px;
+      margin: 0 auto;
+      border-top: 1px solid var(--border);
+    }
+
+    .quick-actions-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .quick-action-card {
+      background: rgba(23, 23, 23, 0.6);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px;
+      text-align: center;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+
+    .quick-action-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(216,31,38,0.3);
+      box-shadow: 0 12px 40px rgba(216,31,38,0.2);
+    }
+
+    .quick-action-icon {
+      font-size: 40px;
+      margin-bottom: 16px;
+    }
+
+    .quick-action-title {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+
+    .quick-action-desc {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    /* ─── CLEAR MODAL ───────────────────────────────── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(8px);
+      z-index: 3000;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .modal-overlay.show {
+      display: flex;
+      opacity: 1;
+    }
+
+    .modal {
+      background: rgba(23, 23, 23, 0.95);
+      backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 40px;
+      max-width: 480px;
+      width: 90%;
+      transform: scale(0.9);
+      transition: transform 0.3s ease;
+    }
+
+    .modal-overlay.show .modal {
+      transform: scale(1);
+    }
+
+    .modal-icon {
+      font-size: 48px;
+      margin-bottom: 16px;
+    }
+
+    .modal-title {
+      font-family: 'Bebas Neue', 'Anton', sans-serif;
+      font-size: 28px;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+
+    .modal-text {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.6;
+      margin-bottom: 24px;
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    .modal-btn {
+      flex: 1;
+      padding: 14px 24px;
+      border-radius: 12px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .modal-btn.primary {
+      background: var(--accent);
+      border: none;
+      color: #fff;
+    }
+
+    .modal-btn.primary:hover {
+      background: var(--accent-hover);
+    }
+
+    .modal-btn.secondary {
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--text);
+    }
+
+    .modal-btn.secondary:hover {
+      border-color: var(--accent);
+      background: rgba(216,31,38,0.1);
+    }
+
+    /* ─── RESPONSIVE DESIGN ───────────────────────── */
+    @media (max-width: 1440px) {
+      .recommended-grid {
+        grid-template-columns: repeat(4, 1fr);
+      }
+    }
+
+    @media (max-width: 1200px) {
+      .wishlist-stats {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .wishlist-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .recommended-grid {
+        grid-template-columns: repeat(3, 1fr);
+      }
+
+      .quick-actions-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 1024px) {
+      .wishlist-hero {
+        padding: 60px 32px;
+      }
+
+      .wishlist-filters-section {
+        padding: 24px 32px;
+      }
+
+      .wishlist-section {
+        padding: 32px;
+      }
+
+      .wishlist-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .recommended-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .wishlist-hero {
+        padding: 40px 24px;
+      }
+
+      .wishlist-filters-section {
+        padding: 20px 24px;
+      }
+
+      .wishlist-filters-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 16px;
+      }
+
+      .bulk-actions {
+        width: 100%;
+      }
+
+      .bulk-btn {
+        flex: 1;
+        justify-content: center;
+      }
+
+      .wishlist-filters {
+        flex-direction: column;
+      }
+
+      .filter-input,
+      .filter-select {
+        width: 100%;
+      }
+
+      .wishlist-section {
+        padding: 24px;
+      }
+
+      .wishlist-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .recommended-section {
+        padding: 24px;
+      }
+
+      .recommended-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .quick-actions-section {
+        padding: 24px;
+      }
+
+      .quick-actions-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .wishlist-stats {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+      }
+
+      .stat-card {
+        padding: 16px;
+      }
+
+      .stat-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
+      }
+
+      .stat-number {
+        font-size: 24px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .wishlist-hero {
+        padding: 32px 16px;
+      }
+
+      .wishlist-hero-title {
+        font-size: 36px;
+      }
+
+      .wishlist-filters-section {
+        padding: 16px;
+      }
+
+      .wishlist-section,
+      .recommended-section,
+      .quick-actions-section {
+        padding: 20px 16px;
+      }
+
+      .recommended-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .empty-actions {
+        flex-direction: column;
+      }
+
+      .empty-actions .btn {
+        width: 100%;
+      }
+    }
+
+    /* ─── ACCESSIBILITY ───────────────────────────── */
+    .stat-card:focus-visible,
+    .bulk-btn:focus-visible,
+    .filter-input:focus-visible,
+    .filter-select:focus-visible,
+    .wishlist-card:focus-visible,
+    .wishlist-card-btn:focus-visible,
+    .quick-action-card:focus-visible,
+    .modal-btn:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════ CUSTOM CURSOR ══ -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursor-ring"></div>
+
+<!-- ═══════════════════════════════════════════ NAV ══ -->
+<nav id="nav">
+  <a href="index.html" class="nav-logo">RHEMY BEATZ</a>
+  <div class="nav-links">
+    <a href="index.html#hero">Home</a>
+    <a href="index.html#beats">Beat Store</a>
+    <a href="index.html#sound-perks">Sound Perks</a>
+    <a href="hub.html">The Hub</a>
+    <a href="index.html#services">Services</a>
+    <a href="index.html#about">About</a>
+  </div>
+  <div class="nav-actions">
+    <button class="nav-action-btn" title="Search">
+      <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+    </button>
+    <button class="nav-action-btn" title="Wishlist" onclick="window.location.href='wishlist.html'">
+      <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+    </button>
+    <button class="nav-action-btn" title="Cart">
+      <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+    </button>
+    <a href="signup.html" class="nav-action-btn" title="Profile">
+      <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+    </a>
+    <button class="mobile-menu-btn" id="mobile-menu-btn" aria-label="Open menu" aria-expanded="false">
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════════════════════ MOBILE MENU ══ -->
+<div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+  <div class="mobile-menu-overlay" id="mobile-menu-overlay"></div>
+  <div class="mobile-menu-panel">
+    <div class="mobile-menu-header">
+      <div class="mobile-menu-logo">RHEMY BEATZ</div>
+      <button class="mobile-menu-close" id="mobile-menu-close" aria-label="Close menu">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+      </button>
+    </div>
+    <div class="mobile-menu-content">
+      <nav class="mobile-menu-nav">
+        <a href="index.html#hero" class="mobile-menu-link" data-delay="0">Home</a>
+        <a href="index.html#beats" class="mobile-menu-link" data-delay="50">Beat Store</a>
+        <a href="index.html#sound-perks" class="mobile-menu-link" data-delay="100">Sound Perks</a>
+        <a href="hub.html" class="mobile-menu-link" data-delay="150">The Hub</a>
+        <a href="index.html#services" class="mobile-menu-link" data-delay="200">Services</a>
+        <a href="index.html#about" class="mobile-menu-link" data-delay="250">About</a>
+      </nav>
+      <div class="mobile-menu-divider"></div>
+      <div class="mobile-menu-actions">
+        <a href="#" class="mobile-menu-action" data-delay="300">
+          <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+          Search
+        </a>
+        <a href="wishlist.html" class="mobile-menu-action" data-delay="350">
+          <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+          Wishlist
+        </a>
+        <a href="#" class="mobile-menu-action" data-delay="400">
+          <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+          Cart
+        </a>
+        <a href="signup.html" class="mobile-menu-action" data-delay="500">
+          <svg viewBox="0 0 24 24"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+          Profile
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════ WISHLIST PAGE ══ -->
+<div class="wishlist-page">
+  
+  <!-- HERO SECTION -->
+  <div class="wishlist-hero">
+    <div class="wishlist-hero-noise"></div>
+    <div class="wishlist-hero-particles" id="wishlist-particles"></div>
+    <div class="wishlist-hero-content">
+      <div class="wishlist-hero-label">Saved Beats</div>
+      <h1 class="wishlist-hero-title">MY WISHLIST</h1>
+      <p class="wishlist-hero-subtitle">Save the beats that inspire you and come back anytime to purchase, compare licenses, or continue building your next masterpiece.</p>
+      
+      <!-- STATS CARDS -->
+      <div class="wishlist-stats">
+        <div class="stat-card">
+          <div class="stat-icon">🎵</div>
+          <div class="stat-info">
+            <div class="stat-number">8</div>
+            <div class="stat-label">Saved Beats</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">💰</div>
+          <div class="stat-info">
+            <div class="stat-number">$312</div>
+            <div class="stat-label">Est. Total Value</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🎸</div>
+          <div class="stat-info">
+            <div class="stat-number">Trap</div>
+            <div class="stat-label">Favorite Genre</div>
+          </div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-icon">🕐</div>
+          <div class="stat-info">
+            <div class="stat-number">2d ago</div>
+            <div class="stat-label">Recently Added</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEARCH & FILTERS -->
+  <div class="wishlist-filters-section">
+    <div class="wishlist-filters-header">
+      <h2 class="wishlist-filters-title">Your Collection</h2>
+      <div class="bulk-actions">
+        <button class="bulk-btn primary" onclick="moveAllToCart()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+          Move All To Cart
+        </button>
+        <button class="bulk-btn secondary" onclick="showClearModal()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg>
+          Clear Wishlist
+        </button>
+      </div>
+    </div>
+    
+    <div class="wishlist-filters">
+      <input type="search" class="filter-input" placeholder="Search your wishlist…" />
+      <select class="filter-select">
+        <option value="">All Genres</option>
+        <option value="Trap">Trap</option>
+        <option value="Hip-Hop">Hip-Hop</option>
+        <option value="Drill">Drill</option>
+        <option value="R&B">R&B</option>
+        <option value="Afrobeats">Afrobeats</option>
+        <option value="Lo-Fi">Lo-Fi</option>
+      </select>
+      <select class="filter-select">
+        <option value="">All Moods</option>
+        <option value="Dark">Dark</option>
+        <option value="Uplifting">Uplifting</option>
+        <option value="Aggressive">Aggressive</option>
+        <option value="Moody">Moody</option>
+        <option value="Chill">Chill</option>
+        <option value="Energetic">Energetic</option>
+        <option value="Melancholic">Melancholic</option>
+      </select>
+      <select class="filter-select">
+        <option value="">BPM Range</option>
+        <option value="slow">Slow (60-90)</option>
+        <option value="mid">Mid (90-120)</option>
+        <option value="fast">Fast (120+)</option>
+      </select>
+      <select class="filter-select">
+        <option value="">Price Range</option>
+        <option value="low">Under $30</option>
+        <option value="mid">$30-$50</option>
+        <option value="high">$50+</option>
+      </select>
+      <select class="filter-select">
+        <option value="">Sort By</option>
+        <option value="newest">Newest First</option>
+        <option value="oldest">Oldest First</option>
+        <option value="alpha">Alphabetical</option>
+        <option value="price-low">Price: Low to High</option>
+        <option value="price-high">Price: High to Low</option>
+        <option value="favorites">Favorites</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- WISHLIST GRID -->
+  <div class="wishlist-section">
+    <div class="wishlist-grid" id="wishlist-grid">
+      <!-- Beat Card 1 -->
+      <div class="wishlist-card" data-id="1">
+        <div class="wishlist-card-art" style="background: linear-gradient(135deg, #1a0a1a 0%, #2a1525 100%)" onclick="window.location.href='beat-details.html?id=1'">
+          <span>DS</span>
+          <div class="wishlist-card-overlay">
+            <button class="wishlist-card-play">
+              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="wishlist-card-body">
+          <h3 class="wishlist-card-title" onclick="window.location.href='beat-details.html?id=1'">Dark Skies</h3>
+          <div class="wishlist-card-meta">
+            <span class="wishlist-card-tag">Trap</span>
+            <span class="wishlist-card-tag">Dark</span>
+            <span class="wishlist-card-tag">140 BPM</span>
+            <span class="wishlist-card-tag">F# Minor</span>
+          </div>
+          <div class="wishlist-card-price">$29.99</div>
+          <div class="wishlist-card-actions">
+            <button class="wishlist-card-btn" title="Preview">
+              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              Preview
+            </button>
+            <button class="wishlist-card-btn" title="Saved">
+              <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </button>
+            <button class="wishlist-card-btn" title="Add to Cart">
+              <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+            </button>
+            <button class="wishlist-card-btn primary" title="Buy Now">
+              Buy Now
+            </button>
+            <button class="wishlist-card-btn danger" title="Remove" onclick="removeFromWishlist(this)">
+              <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+            </button>
+          </div>
+          <div class="wishlist-card-date">Added 2 days ago</div>
+        </div>
+      </div>
+
+      <!-- Beat Card 2 -->
+      <div class="wishlist-card" data-id="2">
+        <div class="wishlist-card-art" style="background: linear-gradient(135deg, #1a1200 0%, #2a2010 100%)" onclick="window.location.href='beat-details.html?id=2'">
+          <span>GH</span>
+          <div class="wishlist-card-overlay">
+            <button class="wishlist-card-play">
+              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="wishlist-card-body">
+          <h3 class="wishlist-card-title" onclick="window.location.href='beat-details.html?id=2'">Golden Hour</h3>
+          <div class="wishlist-card-meta">
+            <span class="wishlist-card-tag">Hip-Hop</span>
+            <span class="wishlist-card-tag">Uplifting</span>
+            <span class="wishlist-card-tag">95 BPM</span>
+            <span class="wishlist-card-tag">C Major</span>
+          </div>
+          <div class="wishlist-card-price">$24.99</div>
+          <div class="wishlist-card-actions">
+            <button class="wishlist-card-btn" title="Preview">
+              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              Preview
+            </button>
+            <button class="wishlist-card-btn" title="Saved">
+              <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </button>
+            <button class="wishlist-card-btn" title="Add to Cart">
+              <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+            </button>
+            <button class="wishlist-card-btn primary" title="Buy Now">
+              Buy Now
+            </button>
+            <button class="wishlist-card-btn danger" title="Remove" onclick="removeFromWishlist(this)">
+              <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+            </button>
+          </div>
+          <div class="wishlist-card-date">Added 3 days ago</div>
+        </div>
+      </div>
+
+      <!-- Beat Card 3 -->
+      <div class="wishlist-card" data-id="3">
+        <div class="wishlist-card-art" style="background: linear-gradient(135deg, #0a0f1a 0%, #151a25 100%)" onclick="window.location.href='beat-details.html?id=3'">
+          <span>MR</span>
+          <div class="wishlist-card-overlay">
+            <button class="wishlist-card-play">
+              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="wishlist-card-body">
+          <h3 class="wishlist-card-title" onclick="window.location.href='beat-details.html?id=3'">Midnight Run</h3>
+          <div class="wishlist-card-meta">
+            <span class="wishlist-card-tag">Drill</span>
+            <span class="wishlist-card-tag">Aggressive</span>
+            <span class="wishlist-card-tag">145 BPM</span>
+            <span class="wishlist-card-tag">D Minor</span>
+          </div>
+          <div class="wishlist-card-price">$34.99</div>
+          <div class="wishlist-card-actions">
+            <button class="wishlist-card-btn" title="Preview">
+              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              Preview
+            </button>
+            <button class="wishlist-card-btn" title="Saved">
+              <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </button>
+            <button class="wishlist-card-btn" title="Add to Cart">
+              <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+            </button>
+            <button class="wishlist-card-btn primary" title="Buy Now">
+              Buy Now
+            </button>
+            <button class="wishlist-card-btn danger" title="Remove" onclick="removeFromWishlist(this)">
+              <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+            </button>
+          </div>
+          <div class="wishlist-card-date">Added 5 days ago</div>
+        </div>
+      </div>
+
+      <!-- Beat Card 4 -->
+      <div class="wishlist-card" data-id="4">
+        <div class="wishlist-card-art" style="background: linear-gradient(135deg, #001a1a 0%, #102020 100%)" onclick="window.location.href='beat-details.html?id=4'">
+          <span>NN</span>
+          <div class="wishlist-card-overlay">
+            <button class="wishlist-card-play">
+              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="wishlist-card-body">
+          <h3 class="wishlist-card-title" onclick="window.location.href='beat-details.html?id=4'">Neon Nights</h3>
+          <div class="wishlist-card-meta">
+            <span class="wishlist-card-tag">R&B</span>
+            <span class="wishlist-card-tag">Moody</span>
+            <span class="wishlist-card-tag">85 BPM</span>
+            <span class="wishlist-card-tag">A Minor</span>
+          </div>
+          <div class="wishlist-card-price">$27.99</div>
+          <div class="wishlist-card-actions">
+            <button class="wishlist-card-btn" title="Preview">
+              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              Preview
+            </button>
+            <button class="wishlist-card-btn" title="Saved">
+              <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </button>
+            <button class="wishlist-card-btn" title="Add to Cart">
+              <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+            </button>
+            <button class="wishlist-card-btn primary" title="Buy Now">
+              Buy Now
+            </button>
+            <button class="wishlist-card-btn danger" title="Remove" onclick="removeFromWishlist(this)">
+              <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+            </button>
+          </div>
+          <div class="wishlist-card-date">Added 1 week ago</div>
+        </div>
+      </div>
+
+      <!-- Beat Card 5 -->
+      <div class="wishlist-card" data-id="5">
+        <div class="wishlist-card-art" style="background: linear-gradient(135deg, #0d0a1a 0%, #1a1525 100%)" onclick="window.location.href='beat-details.html?id=5'">
+          <span>PK</span>
+          <div class="wishlist-card-overlay">
+            <button class="wishlist-card-play">
+              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="wishlist-card-body">
+          <h3 class="wishlist-card-title" onclick="window.location.href='beat-details.html?id=5'">Phantom Keys</h3>
+          <div class="wishlist-card-meta">
+            <span class="wishlist-card-tag">Trap</span>
+            <span class="wishlist-card-tag">Dark</span>
+            <span class="wishlist-card-tag">138 BPM</span>
+            <span class="wishlist-card-tag">E Minor</span>
+          </div>
+          <div class="wishlist-card-price">$39.99</div>
+          <div class="wishlist-card-actions">
+            <button class="wishlist-card-btn" title="Preview">
+              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              Preview
+            </button>
+            <button class="wishlist-card-btn" title="Saved">
+              <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </button>
+            <button class="wishlist-card-btn" title="Add to Cart">
+              <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+            </button>
+            <button class="wishlist-card-btn primary" title="Buy Now">
+              Buy Now
+            </button>
+            <button class="wishlist-card-btn danger" title="Remove" onclick="removeFromWishlist(this)">
+              <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+            </button>
+          </div>
+          <div class="wishlist-card-date">Added 1 week ago</div>
+        </div>
+      </div>
+
+      <!-- Beat Card 6 -->
+      <div class="wishlist-card" data-id="6">
+        <div class="wishlist-card-art" style="background: linear-gradient(135deg, #1a0f00 0%, #2a1a10 100%)" onclick="window.location.href='beat-details.html?id=6'">
+          <span>SD</span>
+          <div class="wishlist-card-overlay">
+            <button class="wishlist-card-play">
+              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="wishlist-card-body">
+          <h3 class="wishlist-card-title" onclick="window.location.href='beat-details.html?id=6'">Sunrise Drip</h3>
+          <div class="wishlist-card-meta">
+            <span class="wishlist-card-tag">Hip-Hop</span>
+            <span class="wishlist-card-tag">Chill</span>
+            <span class="wishlist-card-tag">88 BPM</span>
+            <span class="wishlist-card-tag">Bb Major</span>
+          </div>
+          <div class="wishlist-card-price">$22.99</div>
+          <div class="wishlist-card-actions">
+            <button class="wishlist-card-btn" title="Preview">
+              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              Preview
+            </button>
+            <button class="wishlist-card-btn" title="Saved">
+              <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </button>
+            <button class="wishlist-card-btn" title="Add to Cart">
+              <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+            </button>
+            <button class="wishlist-card-btn primary" title="Buy Now">
+              Buy Now
+            </button>
+            <button class="wishlist-card-btn danger" title="Remove" onclick="removeFromWishlist(this)">
+              <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+            </button>
+          </div>
+          <div class="wishlist-card-date">Added 2 weeks ago</div>
+        </div>
+      </div>
+
+      <!-- Beat Card 7 -->
+      <div class="wishlist-card" data-id="7">
+        <div class="wishlist-card-art" style="background: linear-gradient(135deg, #001a0a 0%, #102010 100%)" onclick="window.location.href='beat-details.html?id=7'">
+          <span>ES</span>
+          <div class="wishlist-card-overlay">
+            <button class="wishlist-card-play">
+              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="wishlist-card-body">
+          <h3 class="wishlist-card-title" onclick="window.location.href='beat-details.html?id=7'">Electric Soul</h3>
+          <div class="wishlist-card-meta">
+            <span class="wishlist-card-tag">Afrobeats</span>
+            <span class="wishlist-card-tag">Energetic</span>
+            <span class="wishlist-card-tag">105 BPM</span>
+            <span class="wishlist-card-tag">G Major</span>
+          </div>
+          <div class="wishlist-card-price">$31.99</div>
+          <div class="wishlist-card-actions">
+            <button class="wishlist-card-btn" title="Preview">
+              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              Preview
+            </button>
+            <button class="wishlist-card-btn" title="Saved">
+              <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </button>
+            <button class="wishlist-card-btn" title="Add to Cart">
+              <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+            </button>
+            <button class="wishlist-card-btn primary" title="Buy Now">
+              Buy Now
+            </button>
+            <button class="wishlist-card-btn danger" title="Remove" onclick="removeFromWishlist(this)">
+              <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+            </button>
+          </div>
+          <div class="wishlist-card-date">Added 2 weeks ago</div>
+        </div>
+      </div>
+
+      <!-- Beat Card 8 -->
+      <div class="wishlist-card" data-id="8">
+        <div class="wishlist-card-art" style="background: linear-gradient(135deg, #0a0f1a 0%, #151a25 100%)" onclick="window.location.href='beat-details.html?id=8'">
+          <span>FT</span>
+          <div class="wishlist-card-overlay">
+            <button class="wishlist-card-play">
+              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="wishlist-card-body">
+          <h3 class="wishlist-card-title" onclick="window.location.href='beat-details.html?id=8'">Frozen Time</h3>
+          <div class="wishlist-card-meta">
+            <span class="wishlist-card-tag">Lo-Fi</span>
+            <span class="wishlist-card-tag">Melancholic</span>
+            <span class="wishlist-card-tag">78 BPM</span>
+            <span class="wishlist-card-tag">C# Minor</span>
+          </div>
+          <div class="wishlist-card-price">$19.99</div>
+          <div class="wishlist-card-actions">
+            <button class="wishlist-card-btn" title="Preview">
+              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+              Preview
+            </button>
+            <button class="wishlist-card-btn" title="Saved">
+              <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </button>
+            <button class="wishlist-card-btn" title="Add to Cart">
+              <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+            </button>
+            <button class="wishlist-card-btn primary" title="Buy Now">
+              Buy Now
+            </button>
+            <button class="wishlist-card-btn danger" title="Remove" onclick="removeFromWishlist(this)">
+              <svg viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+            </button>
+          </div>
+          <div class="wishlist-card-date">Added 3 weeks ago</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- EMPTY STATE -->
+    <div class="wishlist-empty" id="wishlist-empty">
+      <div class="empty-illustration">🎵</div>
+      <h2 class="empty-title">Your Wishlist Is Empty</h2>
+      <p class="empty-subtitle">Discover premium beats and save the ones that match your next hit.</p>
+      <div class="empty-actions">
+        <a href="index.html#beats" class="btn btn-primary">Browse Beat Store</a>
+        <a href="hub.html" class="btn btn-outline">Explore The Hub</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- RECOMMENDED FOR YOU -->
+  <div class="recommended-section">
+    <div class="recommended-header">
+      <div class="recommended-label">Discover More</div>
+      <h2 class="recommended-title">Recommended For You</h2>
+    </div>
+    
+    <div class="recommended-grid">
+      <div class="beat-card">
+        <div class="beat-card-art" style="background: linear-gradient(135deg, #1a0a0a 0%, #251515 100%)">
+          <span>🎧</span>
+          <div class="beat-card-overlay">
+            <button class="beat-card-play">
+              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="beat-card-body">
+          <h4 class="beat-card-title">Urban Dreams</h4>
+          <div class="beat-card-meta">
+            <span>Trap</span>
+            <span>•</span>
+            <span>135 BPM</span>
+          </div>
+          <div class="beat-card-price">$28.99</div>
+          <div class="beat-card-actions">
+            <button class="beat-card-btn">
+              <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </button>
+            <button class="beat-card-btn">
+              <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="beat-card">
+        <div class="beat-card-art" style="background: linear-gradient(135deg, #0a0a1a 0%, #151525 100%)">
+          <span>🎹</span>
+          <div class="beat-card-overlay">
+            <button class="beat-card-play">
+              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="beat-card-body">
+          <h4 class="beat-card-title">Midnight Jazz</h4>
+          <div class="beat-card-meta">
+            <span>Lo-Fi</span>
+            <span>•</span>
+            <span>82 BPM</span>
+          </div>
+          <div class="beat-card-price">$21.99</div>
+          <div class="beat-card-actions">
+            <button class="beat-card-btn">
+              <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </button>
+            <button class="beat-card-btn">
+              <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="beat-card">
+        <div class="beat-card-art" style="background: linear-gradient(135deg, #0a1a0a 0%, #152515 100%)">
+          <span>🎸</span>
+          <div class="beat-card-overlay">
+            <button class="beat-card-play">
+              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="beat-card-body">
+          <h4 class="beat-card-title">Summer Vibes</h4>
+          <div class="beat-card-meta">
+            <span>Afrobeats</span>
+            <span>•</span>
+            <span>110 BPM</span>
+          </div>
+          <div class="beat-card-price">$33.99</div>
+          <div class="beat-card-actions">
+            <button class="beat-card-btn">
+              <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </button>
+            <button class="beat-card-btn">
+              <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="beat-card">
+        <div class="beat-card-art" style="background: linear-gradient(135deg, #1a1a0a 0%, #252515 100%)">
+          <span>🥁</span>
+          <div class="beat-card-overlay">
+            <button class="beat-card-play">
+              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="beat-card-body">
+          <h4 class="beat-card-title">Drill Lord</h4>
+          <div class="beat-card-meta">
+            <span>Drill</span>
+            <span>•</span>
+            <span>142 BPM</span>
+          </div>
+          <div class="beat-card-price">$36.99</div>
+          <div class="beat-card-actions">
+            <button class="beat-card-btn">
+              <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </button>
+            <button class="beat-card-btn">
+              <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="beat-card">
+        <div class="beat-card-art" style="background: linear-gradient(135deg, #0a050a 0%, #151015 100%)">
+          <span>🎤</span>
+          <div class="beat-card-overlay">
+            <button class="beat-card-play">
+              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="beat-card-body">
+          <h4 class="beat-card-title">Soulful Nights</h4>
+          <div class="beat-card-meta">
+            <span>R&B</span>
+            <span>•</span>
+            <span>90 BPM</span>
+          </div>
+          <div class="beat-card-price">$26.99</div>
+          <div class="beat-card-actions">
+            <button class="beat-card-btn">
+              <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </button>
+            <button class="beat-card-btn">
+              <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="beat-card">
+        <div class="beat-card-art" style="background: linear-gradient(135deg, #0a0a00 0%, #151510 100%)">
+          <span>🎺</span>
+          <div class="beat-card-overlay">
+            <button class="beat-card-play">
+              <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            </button>
+          </div>
+        </div>
+        <div class="beat-card-body">
+          <h4 class="beat-card-title">Dancehall King</h4>
+          <div class="beat-card-meta">
+            <span>Dancehall</span>
+            <span>•</span>
+            <span>98 BPM</span>
+          </div>
+          <div class="beat-card-price">$29.99</div>
+          <div class="beat-card-actions">
+            <button class="beat-card-btn">
+              <svg viewBox="0 0 24 24"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+            </button>
+            <button class="beat-card-btn">
+              <svg viewBox="0 0 24 24"><path d="M7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zM1 2v2h2l3.6 7.59-1.35 2.45c-.16.28-.25.61-.25.96 0 1.1.9 2 2 2h12v-2H7.42c-.14 0-.25-.11-.25-.25l.03-.12.9-1.63h7.45c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.08-.14.12-.31.12-.48 0-.55-.45-1-1-1H5.21l-.94-2H1zm16 16c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUICK ACTIONS -->
+  <div class="quick-actions-section">
+    <div class="recommended-header">
+      <div class="recommended-label">Quick Access</div>
+      <h2 class="recommended-title">Explore More</h2>
+    </div>
+    
+    <div class="quick-actions-grid">
+      <div class="quick-action-card" onclick="window.location.href='index.html#beats'">
+        <div class="quick-action-icon">🎵</div>
+        <h3 class="quick-action-title">Browse Beat Store</h3>
+        <p class="quick-action-desc">Discover premium beats across all genres</p>
+      </div>
+      <div class="quick-action-card" onclick="window.location.href='hub.html'">
+        <div class="quick-action-icon">🔥</div>
+        <h3 class="quick-action-title">Visit The Hub</h3>
+        <p class="quick-action-desc">Trending beats and fresh releases</p>
+      </div>
+      <div class="quick-action-card" onclick="window.location.href='dashboard.html'">
+        <div class="quick-action-icon">📊</div>
+        <h3 class="quick-action-title">Open Dashboard</h3>
+        <p class="quick-action-desc">Manage your purchases and downloads</p>
+      </div>
+      <div class="quick-action-card" onclick="window.location.href='index.html#contact'">
+        <div class="quick-action-icon">📧</div>
+        <h3 class="quick-action-title">Contact DJ RHEMY</h3>
+        <p class="quick-action-desc">Custom beats and exclusive deals</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ═══════════════════════════════════════════ FOOTER ══ -->
+<footer>
+  <div class="footer-content">
+    <div class="footer-brand">
+      <div class="footer-monogram">RB</div>
+      <div class="footer-name">RHEMY BEATZ</div>
+      <p>Premium beats for artists who want to win. Industry-quality instrumentals crafted with passion and precision.</p>
+    </div>
+    <div class="footer-section">
+      <h4>Navigation</h4>
+      <ul>
+        <li><a href="index.html#hero">Home</a></li>
+        <li><a href="index.html#beats">Beat Store</a></li>
+        <li><a href="index.html#sound-perks">Sound Perks</a></li>
+        <li><a href="hub.html">The Hub</a></li>
+        <li><a href="index.html#services">Services</a></li>
+        <li><a href="index.html#about">About</a></li>
+      </ul>
+    </div>
+    <div class="footer-section">
+      <h4>Resources</h4>
+      <ul>
+        <li><a href="index.html#featured-genres">Featured Genres</a></li>
+        <li><a href="index.html#testimonials">Testimonials</a></li>
+        <li><a href="index.html#newsletter">Newsletter</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-section">
+      <h4>Connect</h4>
+      <ul>
+        <li><a href="https://instagram.com" target="_blank">Instagram</a></li>
+        <li><a href="https://youtube.com" target="_blank">YouTube</a></li>
+        <li><a href="https://tiktok.com" target="_blank">TikTok</a></li>
+        <li><a href="mailto:bookdjrhemy@gmail.com">Email</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&copy; 2026 Rhemy Beatz. All rights reserved.</p>
+    <div class="footer-social">
+      <a href="https://instagram.com" target="_blank" title="Instagram">
+        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      </a>
+      <a href="https://youtube.com" target="_blank" title="YouTube">
+        <svg viewBox="0 0 24 24"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>
+      </a>
+      <a href="https://tiktok.com" target="_blank" title="TikTok">
+        <svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+      </a>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════════════ FLOATING PLAYER ══ -->
+<div id="player">
+  <div class="player-art" id="player-art">
+    <span id="player-art-initials"></span>
+  </div>
+  <div class="player-info">
+    <div class="player-title" id="player-title">No beat selected</div>
+    <div class="player-genre" id="player-genre"></div>
+  </div>
+  <div class="player-controls">
+    <button class="ctrl-btn" id="btn-prev" title="Previous">
+      <svg viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6 8.5 6V6z"/></svg>
+    </button>
+    <button class="play-pause-btn" title="Play / Pause">
+      <svg class="icon-play" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      <svg class="icon-pause" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+    </button>
+    <button class="ctrl-btn" id="btn-next" title="Next">
+      <svg viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zm2.5-6 5.5 4V8z M16 6h2v12h-2z"/></svg>
+    </button>
+  </div>
+  <div class="player-waveform" id="player-waveform"></div>
+  <div class="player-progress">
+    <span class="progress-time" id="time-current">0:00</span>
+    <div class="progress-track" id="progress-track">
+      <div class="progress-fill" id="progress-fill"></div>
+      <div class="progress-thumb" id="progress-thumb"></div>
+    </div>
+    <span class="progress-time" id="time-total">3:00</span>
+  </div>
+  <div class="player-volume">
+    <svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+    <div class="volume-track" id="volume-track">
+      <div class="volume-fill" id="volume-fill"></div>
+    </div>
+  </div>
+</div>
+
+<audio id="audio"></audio>
+
+<!-- ═══════════════════════════════════════════ CLEAR MODAL ══ -->
+<div class="modal-overlay" id="clear-modal">
+  <div class="modal">
+    <div class="modal-icon">⚠️</div>
+    <h2 class="modal-title">Clear Wishlist?</h2>
+    <p class="modal-text">This will remove all beats from your wishlist. This action cannot be undone.</p>
+    <div class="modal-actions">
+      <button class="modal-btn secondary" onclick="hideClearModal()">Cancel</button>
+      <button class="modal-btn primary" onclick="confirmClear()">Clear All</button>
+    </div>
+  </div>
+</div>
+
+<script src="script.js"></script>
+<script>
+// ─── WISHLIST PAGE SPECIFIC SCRIPT ───────────────────────
+
+// Create floating particles
+function createWishlistParticles() {
+  const particlesContainer = document.getElementById("wishlist-particles");
+  if (!particlesContainer) return;
+  
+  for (let i = 0; i < 25; i++) {
+    const particle = document.createElement("div");
+    particle.style.cssText = `
+      position: absolute;
+      width: ${Math.random() * 3 + 1}px;
+      height: ${Math.random() * 3 + 1}px;
+      background: rgba(216,31,38,${Math.random() * 0.3 + 0.1});
+      border-radius: 50%;
+      left: ${Math.random() * 100}%;
+      top: ${Math.random() * 100}%;
+      animation: floatParticle ${Math.random() * 10 + 10}s ease-in-out infinite;
+      animation-delay: ${Math.random() * 5}s;
+    `;
+    particlesContainer.appendChild(particle);
+  }
+  
+  const style = document.createElement("style");
+  style.textContent = `
+    @keyframes floatParticle {
+      0%, 100% { transform: translateY(0) translateX(0); opacity: 0.3; }
+      25% { transform: translateY(-30px) translateX(10px); opacity: 0.6; }
+      50% { transform: translateY(-10px) translateX(-10px); opacity: 0.4; }
+      75% { transform: translateY(-40px) translateX(5px); opacity: 0.5; }
+    }
+  `;
+  document.head.appendChild(style);
+}
+
+// Remove from wishlist with animation
+function removeFromWishlist(btn) {
+  const card = btn.closest('.wishlist-card');
+  card.style.transform = 'translateX(100px)';
+  card.style.opacity = '0';
+  
+  setTimeout(() => {
+    card.remove();
+    checkEmptyState();
+  }, 300);
+}
+
+// Check if wishlist is empty
+function checkEmptyState() {
+  const grid = document.getElementById('wishlist-grid');
+  const emptyState = document.getElementById('wishlist-empty');
+  
+  if (grid.children.length === 0) {
+    emptyState.classList.add('show');
+  }
+}
+
+// Move all to cart (UI simulation)
+function moveAllToCart() {
+  const cards = document.querySelectorAll('.wishlist-card');
+  cards.forEach((card, index) => {
+    setTimeout(() => {
+      card.style.transform = 'translateX(-100px)';
+      card.style.opacity = '0';
+      
+      setTimeout(() => {
+        card.remove();
+        if (index === cards.length - 1) {
+          checkEmptyState();
+        }
+      }, 300);
+    }, index * 100);
+  });
+}
+
+// Show clear modal
+function showClearModal() {
+  document.getElementById('clear-modal').classList.add('show');
+}
+
+// Hide clear modal
+function hideClearModal() {
+  document.getElementById('clear-modal').classList.remove('show');
+}
+
+// Confirm clear
+function confirmClear() {
+  const cards = document.querySelectorAll('.wishlist-card');
+  cards.forEach((card, index) => {
+    setTimeout(() => {
+      card.style.transform = 'translateX(100px)';
+      card.style.opacity = '0';
+      
+      setTimeout(() => {
+        card.remove();
+        if (index === cards.length - 1) {
+          checkEmptyState();
+        }
+      }, 300);
+    }, index * 100);
+  });
+  
+  hideClearModal();
+}
+
+// Close modal on overlay click
+document.getElementById('clear-modal').addEventListener('click', function(e) {
+  if (e.target === this) {
+    hideClearModal();
+  }
+});
+
+// Close modal on escape key
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    hideClearModal();
+  }
+});
+
+// Initialize
+createWishlistParticles();
+</script>
+
+</body>
+</html>
